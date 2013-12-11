@@ -1,12 +1,18 @@
 require 'spec_helper'
 
 describe Product do
-  it 'should validates presence of title'
-  it 'should have title length less then 64 chars'
+
+  it {should validate_presence_of(:title)}
+  it {should ensure_length_of(:title).is_at_most(64)}
+
+
   it 'should have image'
-  it 'should validates presence of price'
-  it 'should validates price format'
-  it 'should have price length less then 10 chars'
-  it 'should have description'
-  it 'should have description length less then 1000 chars'
+
+  it {should validate_presence_of(:price)}
+  it {should validate_numericality_of(:price).is_less_than(1000000).only_integer}
+  it 'should validate price integer parts and cents'
+
+  it {should ensure_length_of(:description).is_at_most(1000)}
+
+  it 'should have many Auctions'
 end
