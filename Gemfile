@@ -54,8 +54,17 @@ end
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
+gem 'slim'
+gem 'haml'
+
+gem 'therubyracer'
+gem 'less-rails'
+gem 'twitter-bootstrap-rails'
 
 gem 'carrierwave'
 gem 'mini_magick'
 gem 'ancestry'
+
 gem 'inherited_resources'
+gem 'has_scope'
+

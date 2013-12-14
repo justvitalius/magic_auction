@@ -1,0 +1,13 @@
+.row
+  .span1
+    = link_to new_resource_path, class: "btn btn-success" do
+      = content_tag( :i, '', class: 'icon-plus')
+      = t(:new)
+  .span9
+    = render :partial => "search" if searchable?
+  .span10
+    = render 'scope_badges', :scope_badges=>scope_badges
+.row
+  = render :partial => "index"
+/.row
+/  = paginate collection,  :theme => 'twitter-bootstrap'

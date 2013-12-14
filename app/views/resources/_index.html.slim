@@ -1,0 +1,13 @@
+table.table.table-striped.table-hover
+  thead
+    tr
+      - attributes.each do |attr|
+        th= sortable attr, resource_class.human_attribute_name(attr)
+  tbody
+    - collection.each do |resource|
+      tr
+        - attributes.each do |attr|
+          td
+            = render_attr resource, attr
+        td
+          = render 'show_edit_delete_btns', {resource: resource}

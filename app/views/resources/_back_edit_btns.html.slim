@@ -1,0 +1,6 @@
+.btn-group
+  = link_to collection_path, :class=>"btn btn-action" do
+    = content_tag :i, '', class: 'icon-arrow-left'
+    = t(:back)
+  = link_to edit_resource_path(resource), :class=>"btn btn-warning" do
+    = content_tag :i, '', class: 'icon-edit'

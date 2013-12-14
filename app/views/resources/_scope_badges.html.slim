@@ -1,0 +1,5 @@
+- scope_badges.each do |key,value|
+  span.badge.badge-info
+    =link_to url_for(params.except(key)), :class=>'close' do
+      | &times;
+    =content_tag :i, t("admin.views.badges.scopes.#{key}")
