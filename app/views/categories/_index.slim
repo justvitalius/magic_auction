@@ -1,0 +1,8 @@
+.row
+  - collection.each do |resource|
+    .row
+      .col-md-1= resource.id
+      .col-md-3= resource.title
+      .col-md-3= image_tag resource.image_url(:xs)
+      .col-md-3
+        = link_to 'создать потомка', new_category_path(parent: resource)
