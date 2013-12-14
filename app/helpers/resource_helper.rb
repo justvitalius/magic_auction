@@ -19,12 +19,12 @@ module ResourceHelper
 
   def dirty_attr resource, attr
     result = resource.public_send(attr)
-    empty_html = NullAttribute.new(self) # candidate for NullObject
-    case attr
-      when 'preview' then image_tag(resource.preview_url(:icon)) if result
-      else
-        result.blank?? empty_html : result.to_s
-    end
+    #empty_html = NullAttribute.new(self) # candidate for NullObject
+    #case attr
+    #  when 'preview' then image_tag(resource.preview_url(:icon)) if result
+    #  else
+    #    result.blank?? empty_html : result.to_s
+    #end
   end
 
 
