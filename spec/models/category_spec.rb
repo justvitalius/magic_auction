@@ -10,18 +10,13 @@ describe Category do
     before(:all) do
       @category = Category.new(title: 'cat1')
       @img_name = 'img.png'
+      @uploader = ImageUploader.new(@category, :image)
     end
 
     it '#image' do
       @category.image = @img_name
-      except(@category.image).to eq(@img_name)
+      expect(@category.image).to be_kind_of(ImageUploader)
     end
-
-    it '#image_url' do
-      @category.image = @img_name
-      except(@category.image_url).to eq("/system/categories/1/#{@img_name}")
-    end
-
   end
 
   describe 'should have trees mode' do
