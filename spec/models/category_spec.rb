@@ -20,7 +20,18 @@ describe Category do
   end
 
   describe 'should have trees mode' do
-    it 'should have #children'
-    it 'should have #parent'
+    before(:all) do
+      @cat1 = Category.new(title: 'cat1')
+    end
+
+    it 'should have #children' do
+      @cat2 = Category.new(title: 'cat2', children: @cat1 )
+      expect(@cat2.children).to eq(@cat1)
+    end
+
+    it 'should have #parent' do
+      @cat2 = Category.new(title: 'cat2', parent: @cat1 )
+      expect(@cat2.parent).to eq(@cat1)
+    end
   end
 end
