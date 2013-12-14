@@ -6,8 +6,7 @@ gem 'rails', '4.0.1'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 
-# Use SCSS for stylesheets
-gem 'sass-rails', '~> 4.0.0'
+
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
@@ -58,8 +57,10 @@ gem 'slim'
 gem 'haml'
 
 gem 'therubyracer'
-gem 'less-rails'
-gem 'twitter-bootstrap-rails'
+gem 'bootstrap-sass', '~> 3.0.3.0'
+gem 'sass-rails', '~> 4.0.0'
+gem 'font-awesome-rails'
+
 
 gem 'carrierwave'
 gem 'mini_magick'
