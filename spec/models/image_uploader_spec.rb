@@ -34,7 +34,6 @@ describe ImageUploader do
 
   context 'without image uploading' do
     before do
-      @path_to_file = "#{Rails.root}/public/gem.jpg"
       @category = Category.new
       @uploader = ImageUploader.new(@category, :image)
     end
@@ -48,6 +47,34 @@ describe ImageUploader do
         expect(@uploader.m.url).to eq('/fallback/m_default.png')
       end
     end
+  end
+
+  describe 'should have exists default image' do
+    before do
+      @mod = ''
+      @path_to_file = "#{Rails.root}/app/assets/images/fallback/#{@mod}default.png"
+    end
+
+    it 'exists "m" size' do
+      @mod = 'm_'
+      expect(File.exists?(@path_to_file)).to eq(true)
+    end
+
+    it 'exists "s" size' do
+      @mod = 's_'
+      expect(File.exists?(@path_to_file)).to eq(true)
+    end
+
+    it 'exists "xs" size' do
+      @mod = 'xs_'
+      expect(File.exists?(@path_to_file)).to eq(true)
+    end
+
+    it 'exists "default" size' do
+      @mod = ''
+      expect(File.exists?(@path_to_file)).to eq(true)
+    end
+
   end
 
 end
