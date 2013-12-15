@@ -1,4 +1,6 @@
-class ResourcesController < InheritedResources::Base
+#class ResourcesController < InheritedResources::Base
+class ResourcesController < ApplicationController
+  inherit_resources
   helper_method :attributes, :form_attributes, :sort_column, :sort_direction, :association_attributes, :associations,
                 :searchable?, :scope_badges
 
