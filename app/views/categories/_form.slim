@@ -1,7 +1,12 @@
 = simple_form_for resource, :html=>{:class=>"form"} do |f|
   = f.input :title
-  = f.input :image
+  /= f.input :image
+  .form-group
+    .form-img
+      = image_tag f.object.image.url(:m)
+    = f.input :image
+
   = f.hidden_field :parent_id, value: params[:parent]
 
   .form-group
-    = f.submit :class=>"btn btn-success"
+    = f.submit :class=>'btn btn-success'
