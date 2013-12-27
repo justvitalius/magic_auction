@@ -43,7 +43,7 @@ describe Category do
 
     it 'should delete children' do
       @cat1.destroy
-      expect(@cat2.children).to be_nil
+      expect(@cat2.children).to eq([])
     end
 
     it 'shouldnt delete parent' do
