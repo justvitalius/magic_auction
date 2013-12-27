@@ -22,6 +22,8 @@ inputs.each do |input_type|
   Object.const_set(input_type, new_class)
 end
 
+SimpleForm.browser_validations = false
+
 # Use this setup block to configure all options available in SimpleForm.
 SimpleForm.setup do |config|
   config.boolean_style = :nested

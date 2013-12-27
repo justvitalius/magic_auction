@@ -1,0 +1,6 @@
+.form-img{
+  &.m-size-m{
+    max-width: 500px; max-height: 500px;
+    img{max-width: 100%; max-height: 100%;}
+  }
+}
