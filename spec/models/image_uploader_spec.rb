@@ -39,12 +39,12 @@ describe ImageUploader do
     end
 
     it 'should return default not scaled image' do
-      expect(@uploader.url).to eq('/fallback/default.png')
+      expect(@uploader.url).to eq('/assets/fallback/default.png')
     end
 
     context 'the scaled version' do
       it 'should return "m" image size' do
-        expect(@uploader.m.url).to eq('/fallback/m_default.png')
+        expect(@uploader.m.url).to eq('/assets/fallback/m_default.png')
       end
     end
   end
