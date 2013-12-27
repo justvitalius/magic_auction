@@ -6,6 +6,8 @@
       = image_tag f.object.image.url(:m)
     = f.input :image
 
+  = f.hidden_field :image_cache
+
   = f.hidden_field :parent_id, value: params[:parent]
 
   .form-group
