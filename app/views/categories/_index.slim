@@ -1,10 +1,5 @@
 .row
-  - collection.roots.each do |resource|
-    /.row
-    /  .col-sm-1= resource.id
-    /  .col-sm-3= resource.title
-    /  .col-sm-2= image_tag resource.image_url(:xs)
-    /  .col-sm-2= resource.ancestry
-    /  .col-sm-3
-    /    = link_to 'создать потомка', new_category_path(parent: resource)
-    = render_subtree resource
+  .col-xs-12
+    - collection.roots.each do |resource|
+      .media-list
+        = render_subtree resource

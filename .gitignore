@@ -25,4 +25,5 @@
 /.rvmrc
 /.sass_cache
 /.system
+.zeus.sock
 
