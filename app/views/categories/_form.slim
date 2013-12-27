@@ -1,8 +1,7 @@
-= simple_form_for resource, :html=>{:class=>"form form-horizontal"} do |f|
+= simple_form_for resource, :html=>{:class=>"form"} do |f|
   = f.input :title
   = f.input :image
   = f.hidden_field :parent_id, value: params[:parent]
 
-  .control-group
-    .controls
-      = f.submit :class=>"btn btn-success"
+  .form-group
+    = f.submit :class=>"btn btn-success"

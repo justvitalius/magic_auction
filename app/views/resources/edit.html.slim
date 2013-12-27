@@ -1,9 +1,10 @@
-.row-fluid.row-large
-  = render 'back_show_btns'
-  h2.inline= "# resource_class.model_name.human "
-.row-fluid
-  .from
-    = render "form"
-.row-fluid
-  = render 'back_show_btns', {resource: resource}
+.row
+  .col-xs-12
+    h2.inline= resource_class.model_name.human
+.row
+  .col-xs-12
+    = render 'form'
+.row
+  .col-xs-12
+    = render 'back_show_btns', {resource: resource}
 

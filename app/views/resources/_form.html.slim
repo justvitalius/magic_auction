@@ -1,8 +1,7 @@
-= simple_form_for resource, :html=>{:class=>"form form-horizontal"} do |f|
+= simple_form_for resource, :html=>{:class=>"form"} do |f|
   - (form_attributes-association_attributes).each do |attr|
-    = f.input attr.to_sym, :input_html=>{:class=>"input-xxlarge"}
+    = f.input attr.to_sym
   - associations(:belongs_to).each do |assoc|
     = f.association assoc.name.to_sym
-  .control-group
-    .controls
-      = f.submit :class=>"btn btn-success"
+  .form-group
+    = f.submit :class=>"btn btn-success"
