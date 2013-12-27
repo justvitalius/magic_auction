@@ -1,6 +1,7 @@
 .form-img{
   &.m-size-m{
-    max-width: 500px; max-height: 500px;
+    $size: 200px;
+    max-width: $size; max-height: $size;
     img{max-width: 100%; max-height: 100%;}
   }
 }
