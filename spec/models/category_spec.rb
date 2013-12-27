@@ -33,4 +33,22 @@ describe Category do
       expect(@cat1.parent).to eq(@cat2)
     end
   end
+
+  describe 'should delete parent and children' do
+    before(:all) do
+      @cat1 = Category.create!(title: 'cat1')
+      @cat2 = Category.create!(title: 'cat2', parent: @cat1)
+      @cat3 = Category.create!(title: 'cat3', parent: @cat1)
+    end
+
+    it 'should delete children' do
+      @cat1.destroy
+      expect(@cat2.children).to be_nil
+    end
+
+    it 'shouldnt delete parent' do
+      @cat2.destroy
+      expect(@cat1).not_to be_nil
+    end
+  end
 end
