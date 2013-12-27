@@ -1,5 +1,11 @@
-h2
-  = "#{resource_class.model_name.human}"
-= render :partial => "form"
-br/
-= link_to t(:back), collection_path
+.row
+  .col-xs-12
+    h2= resource_class.model_name.human
+
+.row
+  .col-xs-12
+    = render :partial => 'form'
+
+.row
+  .col-xs-12
+    = render 'back_show_btns', {resource: resource}

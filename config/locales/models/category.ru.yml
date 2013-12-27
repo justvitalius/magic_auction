@@ -1,0 +1,12 @@
+ru:
+  activerecord:
+    models:
+      category:
+        one: категория
+        few: категории
+        many: категории
+        other: категории
+    attributes:
+      category:
+        title: название
+        image: изображение

@@ -164,9 +164,9 @@ ru:
     select:
       prompt: ! 'Выберите: '
     submit:
-      create: Создать %{model}
-      submit: Сохранить %{model}
-      update: Сохранить %{model}
+      create: Сохранить
+      submit: Сохранить
+      update: Сохранить
   number:
     currency:
       format:
