@@ -1,6 +1,9 @@
 class CategoriesController < ResourcesController
   respond_to :html
 
+  def update
+    update!{ categories_path }
+  end
 
   def create
     create!{ categories_path }
