@@ -39,7 +39,7 @@ describe ProductImage do
     describe 'should return default image' do
       before do
         @pr_img = ProductImage.new
-        @uploader = ImageUploader.new(@pr_img, :image)
+        @uploader = ProductImageUploader.new(@pr_img, :image)
       end
 
       it 'should return default not scaled image' do
@@ -82,8 +82,8 @@ describe ProductImage do
   end
 
   describe 'should have Product' do
-    it {should validate_presence_of(:product_id)}
     it {should belong_to(:product)}
+    it {should validate_presence_of(:product_id)}
   end
 
 end
