@@ -2,6 +2,7 @@ require 'spec_helper'
 require 'bigdecimal'
 
 describe Product do
+  include CarrierWave::Test::Matchers
 
   describe 'it should have title' do
     it {should respond_to(:title)}
@@ -15,14 +16,15 @@ describe Product do
       @pr = Product.new(title: 'pr1', description: 'pr1 description', price: 1.00)
     end
 
-    it {should respond_to(:images)}
+    it {should have_many(:images).class_name('ProductImage').dependent(:destroy)}
+
     it 'should have empty images by default' do
       expect(@pr.images).to eq([])
     end
 
     it 'should have several images' do
-      @pr.images << ImageUploader.new(@pr, :product_image)
-      @pr.images << ImageUploader.new(@pr, :product_image)
+      @pr.images << ProductImage.new()
+      @pr.images << ProductImage.new()
       expect(@pr.images.length).to eq(2)
     end
   end
