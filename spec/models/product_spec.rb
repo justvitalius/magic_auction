@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'bigdecimal'
 
 describe Product do
 
@@ -29,7 +30,7 @@ describe Product do
   describe 'it should have price' do
     it {should respond_to(:price)}
     it {should validate_presence_of(:price)}
-    it {should validate_presence_of(:price).is_greater_than_or_equal_to BigDecimal.new(0.01)}
+    it {should validate_numericality_of(:price).is_greater_than_or_equal_to BigDecimal.new('0.01')}
   end
 
   describe 'it should have description' do
