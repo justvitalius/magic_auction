@@ -6,7 +6,7 @@ describe ProductImage do
   include CarrierWave::Test::Matchers
 
   describe 'should have ProductImage' do
-    it {validate_presence_of(:image)}
+    #it {validate_presence_of(:image)}
     describe 'should return uploaded image' do
       before do
         @path_to_file = "#{Rails.root}/public/gem.jpg"
@@ -83,7 +83,7 @@ describe ProductImage do
 
   describe 'should have Product' do
     it {should belong_to(:product)}
-    it {should validate_presence_of(:product_id)}
+    #it {should validate_presence_of(:product_id)}
   end
 
 end

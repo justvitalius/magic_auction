@@ -1,0 +1,8 @@
+.row
+  .col-xs-12
+    - collection.each do |resource|
+      .row
+        .col-xs-4= resource.title
+        .col-xs-3
+          - resource.images.each do |img|
+            = image_tag img.image.url(:xs)
