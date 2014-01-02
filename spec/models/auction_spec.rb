@@ -1,13 +1,19 @@
 require 'spec_helper'
 
 describe Auction do
-  it 'should validates presence of title'
-  it 'should have title length less then 64 chars'
+  describe 'should have title' do
+    it {should validate_presence_of(:title)}
+    it {should ensure_length_of(:title).is_at_most(64)}
+  end
 
-  it 'should have one Product'
-  it 'should validates presence of Product'
-  it 'should destroy if Product was destroyed'
+  describe 'should have Product' do
+    it {should belong_to(:product)}
+    it (should validate_presence_of(:product))
+  end
 
+  it '#images' do
+    
+  end
   it 'should validates presence of image'
 
   it 'should validates presence of expire date'
