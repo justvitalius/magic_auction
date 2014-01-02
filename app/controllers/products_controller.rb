@@ -12,7 +12,7 @@ class ProductsController < ResourcesController
 
   protected
   def resource_params
-    [params.require(:product).permit(:title, :description, :price, images_attributes: ['id', 'image', 'product_id', '_destroy'])] if params.has_key?(:product)
+    [params.require(:product).permit(:title, :description, :price, images_attributes: ['id', 'image', 'image_cache', 'product_id', '_destroy'])] if params.has_key?(:product)
   end
 
 end
