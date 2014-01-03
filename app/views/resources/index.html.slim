@@ -2,7 +2,7 @@
   .col-xs-1
     = link_to new_resource_path, class: "btn btn-success" do
       = content_tag( :i, '', class: 'fa fa-plus-circle')
-      = t(:new)
+        = t(:new)
   .col-xs-9
     = render :partial => "search" if searchable?
   .col-xs-10
