@@ -4,9 +4,7 @@ module CategoriesHelper
   # with offsetting for each children categories.
   def render_subtree node
     content_tag :div, class: 'media' do
-      content_tag(:div, image_tag(node.image.url(:xs)), class: 'pull-left' )+
-      content_tag(:div, class: 'media-body') do
-        render_node(node) +
+      render_node(node) do
         node.children.map do |subnode|
           render_subtree subnode
         end.join().html_safe
@@ -31,7 +29,7 @@ module CategoriesHelper
   def render_form_node node, f, &block
     content_tag(:div, class: 'pull-left' ) do
       f.radio_button(:category_id, node.id)+
-      image_tag(node.image.url(:xs))
+      image_tag(node.image.url(:xxs))
     end +
     content_tag(:div, class: 'media-body') do
       content_tag(:h4, node.title, class: 'media-heading') +
@@ -40,12 +38,16 @@ module CategoriesHelper
   end
 
   # render one node line with title, action buttons.
-  def render_node node
-    content_tag(:h4, node.title, class: 'media-heading')+
-    content_tag(:div, class: '') do
-      link_to('редактировать', edit_category_path(node), class: 'btn btn-primary')+
-      link_to('удалить', category_path(node), method: :delete, class: 'btn btn-default')+
-      link_to('создать потомка', new_category_path(parent: node), class: 'btn btn-default')
+  def render_node node, &block
+    content_tag(:div, image_tag(node.image.url(:xs)), class: 'pull-left' )+
+    content_tag(:div, class: 'media-body') do
+      content_tag(:h4, node.title, class: 'media-heading')+
+      content_tag(:div, class: '') do
+        link_to('редактировать', edit_category_path(node), class: 'btn btn-primary')+
+        link_to('удалить', category_path(node), method: :delete, class: 'btn btn-default')+
+        link_to('создать потомка', new_category_path(parent: node), class: 'btn btn-default')
+      end +
+      yield
     end
   end
 end
