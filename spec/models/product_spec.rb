@@ -38,5 +38,5 @@ describe Product do
     it {should ensure_length_of(:description).is_at_most(1000)}
   end
 
-  it 'should have many Auctions'
+  it {should have_many(:auctions).dependent(:destroy)}
 end
