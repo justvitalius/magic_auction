@@ -1,4 +1,7 @@
 module CategoriesHelper
+
+  # render categories in treelike mode
+  # with offsetting for each children categories.
   def render_subtree node
     content_tag :div, class: 'media' do
       content_tag(:div, image_tag(node.image.url(:xs)), class: 'pull-left' )+
@@ -11,7 +14,32 @@ module CategoriesHelper
     end
   end
 
+  # render categories in treelike mode
+  # with checking functionality for view forms.
+  def render_form_subtree node, f
+    content_tag :div, class: 'media' do
+      render_form_node(node, f) do
+        node.children.map do |subnode|
+          render_form_subtree subnode, f
+        end.join().html_safe
+      end
+    end
+  end
 
+
+  # render one node line with image, radio_button, title
+  def render_form_node node, f, &block
+    content_tag(:div, class: 'pull-left' ) do
+      f.radio_button(:category_id, node.id)+
+      image_tag(node.image.url(:xs))
+    end +
+    content_tag(:div, class: 'media-body') do
+      content_tag(:h4, node.title, class: 'media-heading') +
+      yield
+    end
+  end
+
+  # render one node line with title, action buttons.
   def render_node node
     content_tag(:h4, node.title, class: 'media-heading')+
     content_tag(:div, class: '') do
