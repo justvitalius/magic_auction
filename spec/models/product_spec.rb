@@ -13,7 +13,7 @@ describe Product do
 
   describe 'should have images' do
     before do
-      @pr = Product.new(title: 'pr1', description: 'pr1 description', price: 1.00)
+      @pr = create(:product)
     end
 
     it {should have_many(:images).class_name('ProductImage').dependent(:destroy)}
