@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe Auction do
-  include CarrierWave::Test::Matchers
   before do
     @auction = create(:auction)
   end
@@ -13,11 +12,22 @@ describe Auction do
 
   describe 'should have Product' do
     it {should belong_to(:product)}
-    it (should validate_presence_of(:product))
+    it {should validate_presence_of(:product_id)}
   end
 
-  it '#images' do
-    expect(@auction.images.first).to eq(@auction.product.images.first)
+  describe '#images' do
+    before do
+      pr = create(:product_with_images)
+      @auction = create(:auction, product: pr)
+    end
+
+    it 'should have equals images count' do
+      expect(@auction.images.count).to eq(@auction.product.images.count)
+    end
+
+    it 'should have equals first images' do
+      expect(@auction.images.first).to eq(@auction.product.images.first)
+    end
   end
 
   describe 'should have expire date' do

@@ -2,7 +2,6 @@ require 'spec_helper'
 require 'bigdecimal'
 
 describe Product do
-  include CarrierWave::Test::Matchers
 
   describe 'it should have title' do
     it {should respond_to(:title)}
@@ -23,8 +22,7 @@ describe Product do
     end
 
     it 'should have several images' do
-      @pr.images << ProductImage.new()
-      @pr.images << ProductImage.new()
+      @pr = create(:product_with_images, images_count: 2)
       expect(@pr.images.length).to eq(2)
     end
   end

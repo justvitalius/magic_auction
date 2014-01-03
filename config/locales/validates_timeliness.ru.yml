@@ -1,0 +1,16 @@
+ru:
+  errors:
+    messages:
+      invalid_date: "не верная дата"
+      invalid_time: "не верное время"
+      invalid_datetime: "не верное дата и время"
+      is_at: "должно быть: %{restriction}"
+      before: "должно быть до %{restriction}"
+      on_or_before: "должно быть не позднее %{restriction}"
+      after: "должно быть после %{restriction}"
+      on_or_after: "должно быть не ранее %{restriction}"
+  validates_timeliness:
+    error_value_formats:
+      date: '%Y-%m-%d'
+      time: '%H:%M:%S'
+      datetime: '%Y-%m-%d %H:%M:%S'

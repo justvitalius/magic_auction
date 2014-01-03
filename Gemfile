@@ -37,6 +37,8 @@ gem 'font-awesome-rails'
 gem 'carrierwave'
 gem 'mini_magick'
 gem 'ancestry'
+gem 'validates_timeliness', '~> 3.0'
+
 
 gem 'inherited_resources'
 gem 'has_scope'
