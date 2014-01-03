@@ -51,4 +51,6 @@ describe Category do
       expect(@cat1).not_to be_nil
     end
   end
+
+  it { should have_many(:products).dependent(:nullify) }
 end

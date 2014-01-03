@@ -42,10 +42,11 @@ describe Product do
     it { should belong_to(:category) }
 
     it 'should clean category when removed category' do
-      @cat = create(:category)
-      @pr = create(:product, category: @cat)
-      @cat.destroy
-      expect(@pr.category).to be_nil
+      cat = create(:category)
+      pr = create(:product, title: 'remove cat', category: cat)
+      cat.destroy
+      pr = Product.where(title: 'remove cat').first!
+      expect(pr.category_id).to be_nil
     end
   end
   it { should have_many(:auctions).dependent(:destroy) }
