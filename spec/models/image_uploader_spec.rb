@@ -19,16 +19,20 @@ describe ImageUploader do
       @uploader.remove!
     end
 
+    it 'should scale down to "xxs" version' do
+      @uploader.xxs.should have_dimensions(24, 24)
+    end
+
     it 'should scale down to "xs" version' do
-      @uploader.xs.should have_dimensions(50, 50)
+      @uploader.xs.should have_dimensions(64, 64)
     end
 
     it 'should scale down to "s" version' do
-      @uploader.s.should be_no_larger_than(200, 200)
+      @uploader.s.should be_no_larger_than(128, 128)
     end
 
     it 'should scale down to "m" version' do
-      @uploader.m.should be_no_larger_than(500, 500)
+      @uploader.m.should be_no_larger_than(256, 256)
     end
   end
 
@@ -39,12 +43,12 @@ describe ImageUploader do
     end
 
     it 'should return default not scaled image' do
-      expect(@uploader.url).to eq('/assets/fallback/default.png')
+      expect(@uploader.url).to eq('/assets/fallback/categories/default.png')
     end
 
     context 'the scaled version' do
       it 'should return "m" image size' do
-        expect(@uploader.m.url).to eq('/assets/fallback/m_default.png')
+        expect(@uploader.m.url).to eq('/assets/fallback/categories/m_default.png')
       end
     end
   end
@@ -52,7 +56,7 @@ describe ImageUploader do
   describe 'should have exists default image' do
     before do
       @mod = ''
-      @path_to_file = "#{Rails.root}/app/assets/images/fallback/#{@mod}default.png"
+      @path_to_file = "#{Rails.root}/app/assets/images/fallback/categories/#{@mod}default.png"
     end
 
     it 'exists "m" size' do
@@ -67,6 +71,11 @@ describe ImageUploader do
 
     it 'exists "xs" size' do
       @mod = 'xs_'
+      expect(File.exists?(@path_to_file)).to eq(true)
+    end
+
+    it 'exists "xxs" size' do
+      @mod = 'xxs_'
       expect(File.exists?(@path_to_file)).to eq(true)
     end
 
