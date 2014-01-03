@@ -3,11 +3,11 @@ class AuctionsController < ResourcesController
   actions :all, :except => [ :show ]
 
   def update
-    update!{ products_path }
+    update!{ auctions_path }
   end
 
   def create
-    create!{ products_path }
+    create!{ auctions_path }
   end
 
   protected
