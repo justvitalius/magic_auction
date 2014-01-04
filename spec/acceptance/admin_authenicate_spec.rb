@@ -65,5 +65,37 @@ feature "Admin authenticate", %q{
   end
 
 
-  context 'UI links'
+  context 'UI links' do
+    context 'Non-authenticated user'
+      scenario 'visit login page' do
+        visit root_path
+        click_on 'войти'
+
+        expect(current_path).to eq(new_user_session_path)
+        expect(page).to have_content('вход')
+      end
+    end
+
+    context 'Authenticated user' do
+      background do
+        @user = create(:admin)
+        visit new_user_session_path
+        sign_in_with user.email, '12345678'
+      end
+
+      scenario 'logout' do
+        click_on 'выйти'
+
+        expect(current_path).to eq(root_path)
+        expect(page).to have_content('вы вышли')
+      end
+
+      scenario 'visit private office' do
+        click_on @user.email
+
+        expect(current_path).to eq(edit_user_registration_path)
+        expect(page).to have_content('личный кабинет')
+      end
+    end
+  end
 end
