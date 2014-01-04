@@ -1,0 +1,5 @@
+ru:
+  layouts:
+    application:
+      login: войти
+      logout: выйти

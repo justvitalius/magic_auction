@@ -16,7 +16,7 @@ feature "Admin authenticate", %q{
       @admin = create(:admin)
     end
 
-    scenario 'Unauthenticated user tries to get an access to admin area' do
+    scenario 'Unauthenticated user tries to get an access to admin area by direct link' do
       expect(current_path).to eq(new_user_sessions_path)
       expect(page).to have_content('необходимо войти')
     end
@@ -63,4 +63,7 @@ feature "Admin authenticate", %q{
 
     expect(page).to have_content('У вас нет прав доступа к этой странице')
   end
+
+
+  context 'UI links'
 end
