@@ -40,6 +40,7 @@ gem 'carrierwave'
 gem 'mini_magick'
 gem 'ancestry'
 gem 'validates_timeliness', '~> 3.0'
+gem 'devise'
 
 
 gem 'inherited_resources'
