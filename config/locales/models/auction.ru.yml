@@ -1,0 +1,14 @@
+ru:
+  activerecord:
+    models:
+      auction:
+        one: аукцион
+        few: аукционы
+        many: аукционы
+        other: аукционы
+    attributes:
+      auction:
+        expire_date: дата окончания
+        product: товар
+        title: название
+
