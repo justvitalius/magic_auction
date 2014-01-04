@@ -40,16 +40,3 @@ module Features
     end
   end
 end
-
-
-#When /^(?:|I )select "([^\"]*)" as the "([^\"]*)" time$/ do |time, selector|
-#  select_time(time, :label => selector)
-#end
-#
-#When /^(?:|I )select "([^\"]*)" as the "([^\"]*)" date$/ do |date, selector|
-#  select_date(date, :label => selector)
-#end
-#
-#When /^(?:|I )select "([^\"]*)" as the "([^\"]*)" date and time$/ do |datetime, selector|
-#  select_datetime(datetime, :label => selector)
-#end

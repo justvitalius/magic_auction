@@ -1,4 +1,5 @@
 require 'spec_helper'
+
 feature "Visitor manage auctions", %q{
   In order to manage auction's settings
   As an visitor
@@ -18,7 +19,7 @@ feature "Visitor manage auctions", %q{
   context 'should work with exists auctions' do
     scenario 'edit exists auction' do
       visit auctions_path
-      save_and_open_page
+      #save_and_open_page
       click_on 'редактировать'
       expect(page).to have_content('редактирование')
     end
