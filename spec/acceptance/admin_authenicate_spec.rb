@@ -13,7 +13,7 @@ feature "Admin authenticate", %q{
   context 'Admin' do
 
     background do
-      @user = create(:admin)
+      @admin = create(:admin)
     end
 
     scenario 'Unauthenticated user tries to get an access to admin area' do
@@ -22,7 +22,7 @@ feature "Admin authenticate", %q{
     end
 
     scenario 'Admin successfully logging into admin area' do
-      sign_in_with @user.email, '12345678'
+      sign_in_with @admin.email, '12345678'
 
       expect(current_path).to eq(auctions_path)
     end
@@ -32,6 +32,26 @@ feature "Admin authenticate", %q{
 
       expect(current_path).to eq(new_user_sessions_path)
       expect(page).to have_content('неверное')
+    end
+  end
+
+  context 'Private office' do
+    background do
+      @admin = create(:admin)
+      visit edit_registration_path
+    end
+
+    scenario 'Admin visit private office' do
+      expect(current_path).to eq(edit_registration_path)
+      expect(page).to have_content('личный кабинет')
+    end
+
+    scenario 'Admin update information in private office' do
+      fill_in 'email', with: 'admin_new@mail.ru'
+      click_on 'сохранить'
+
+      expect(current_path).to eq(edit_registration_path)
+      expect(page).to have_content('данные обновлены')
     end
   end
 
