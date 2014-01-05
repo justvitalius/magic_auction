@@ -1,0 +1,12 @@
+ru:
+  activerecord:
+    models:
+      product:
+        one: товар
+        few: товары
+        many: товары
+        other: товары
+    attributes:
+      product:
+        title: название
+        image: изображение

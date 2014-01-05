@@ -43,9 +43,9 @@ module CategoriesHelper
     content_tag(:div, class: 'media-body') do
       content_tag(:h4, node.title, class: 'media-heading')+
       content_tag(:div, class: '') do
-        link_to('редактировать', edit_category_path(node), class: 'btn btn-primary')+
-        link_to('удалить', category_path(node), method: :delete, class: 'btn btn-default')+
-        link_to('создать потомка', new_category_path(parent: node), class: 'btn btn-default')
+        link_to('редактировать', edit_admin_category_path(node), class: 'btn btn-primary')+
+        link_to('удалить', admin_category_path(node), method: :delete, class: 'btn btn-default')+
+        link_to('создать потомка', new_admin_category_path(parent: node), class: 'btn btn-default')
       end +
       yield
     end

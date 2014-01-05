@@ -1,4 +1,4 @@
-= simple_form_for resource, :html=>{:class=>'form'} do |f|
+= simple_form_for [:admin, resource], :html=>{:class=>'form'} do |f|
   - (form_attributes-association_attributes).each do |attr|
     = f.input attr.to_sym
   - associations(:belongs_to).each do |assoc|

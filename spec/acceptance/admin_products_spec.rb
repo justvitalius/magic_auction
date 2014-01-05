@@ -31,9 +31,9 @@ feature "Admin manage products", %q{
   end
 
   context 'should create new product' do
-    scenario 'view new auction form' do
+    scenario 'view new product form' do
       visit new_admin_product_path
-      expect(page).to have_content('новый аукцион')
+      expect(page).to have_content('новый товар')
     end
   end
 end

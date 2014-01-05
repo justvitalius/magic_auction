@@ -1,11 +1,11 @@
 class Admin::AuctionsController < Admin::ResourcesController
 
   def update
-    update!{ auctions_path }
+    update!{ admin_auctions_path }
   end
 
   def create
-    create!{ auctions_path }
+    create!{ admin_auctions_path }
   end
 
   protected

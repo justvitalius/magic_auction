@@ -13,7 +13,7 @@ feature "Admin manage categories", %q{
   end
 
   scenario 'should render categories' do
-    visit admin_categoies_path
+    visit admin_categories_path
     expect(page).to have_content('категории')
   end
 
@@ -25,7 +25,7 @@ feature "Admin manage categories", %q{
     scenario 'edit exists category' do
       visit admin_categories_path
       #save_and_open_page
-      click_on 'редактировать'
+      first('a', text: 'редактировать').click
       expect(page).to have_content('редактирование')
     end
   end
@@ -33,7 +33,7 @@ feature "Admin manage categories", %q{
   context 'should create new category' do
     scenario 'view new category form' do
       visit new_admin_category_path
-      expect(page).to have_content('новый аукцион')
+      expect(page).to have_content('новая категория')
     end
 
     scenario 'create category with parent'

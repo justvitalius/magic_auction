@@ -52,7 +52,7 @@ feature "Admin authenticate", %q{
       fill_in 'пароль', with: '12345678'
       click_on 'сохранить'
 
-      save_and_open_page
+      #save_and_open_page
       expect(current_path).to eq(edit_user_registration_path)
       expect(page).to have_content('запись изменена')
     end
@@ -90,7 +90,7 @@ feature "Admin authenticate", %q{
       scenario 'logout' do
         click_on 'выйти'
 
-        expect(page).to have_content('вы вышли')
+        expect(page).to have_content('Вы вышли')
       end
 
       scenario 'visit private office' do

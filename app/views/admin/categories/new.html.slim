@@ -1,0 +1,11 @@
+.row
+  .col-xs-12
+    h2= "новая #{resource_class.model_name.human}"
+
+.row
+  .col-xs-12
+    = render 'form'
+
+.row
+  .col-xs-12
+    = render 'admin/resources/back_show_btns', {resource: resource}

@@ -48,7 +48,7 @@ feature "Admin manage auctions", %q{
       select @product.title, from: 'товар'
       click_on 'сохранить'
 
-      expect(current_path).ro eq(admin_auctions_path)
+      expect(current_path).to eq(admin_auctions_path)
       expect(page).to have_content('аукционы')
     end
 

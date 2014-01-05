@@ -6,5 +6,5 @@
         .col-xs-3
           - resource.images.each do |img|
             = image_tag img.image.url(:xs)
-        .col-xs-3= render 'resources/edit_delete_btns', resource: resource
+        .col-xs-3= render 'admin/resources/edit_delete_btns', resource: resource
 

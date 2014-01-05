@@ -1,4 +1,3 @@
-#class ResourcesController < InheritedResources::Base
 class Admin::ResourcesController < Admin::BaseController
   inherit_resources
   helper_method :attributes, :form_attributes, :sort_column, :sort_direction, :association_attributes, :associations,
