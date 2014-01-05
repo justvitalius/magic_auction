@@ -1,10 +1,16 @@
 require 'spec_helper'
 
-feature "Visitor manage auctions", %q{
+feature "Admin manage auctions", %q{
   In order to manage auction's settings
-  As an visitor
+  As an admin
   I want to view, create, edit and delete auctions.
  } do
+
+  background  do
+    @admin = create(:admin)
+    visit new_user_session_path
+    sign_in_with @admin.email, '12345678'
+  end
 
   scenario 'view auctions list' do
     visit auctions_path
@@ -17,6 +23,10 @@ feature "Visitor manage auctions", %q{
   end
 
   context 'should work with exists auctions' do
+    background do
+      create(:auction)
+    end
+
     scenario 'edit exists auction' do
       visit auctions_path
       #save_and_open_page

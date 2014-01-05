@@ -44,5 +44,6 @@ RSpec.configure do |config|
   #     --seed 1234
   config.order = "random"
 
-  config.include Features::SelectDatesAndTimes, type: :feature
+  config.include Features::SelectDatesAndTimesHelper, type: :feature
+  config.include Features::SessionsHelper, type: :feature
 end

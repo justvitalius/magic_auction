@@ -1,7 +1,7 @@
 require 'xpath'
 
 module Features
-  module SelectDatesAndTimes
+  module SelectDatesAndTimesHelper
     def select_date (date, options = {})
       date = Date.parse(date.to_s)
 

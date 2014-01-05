@@ -11,13 +11,12 @@ feature "Admin authenticate", %q{
   end
 
   context 'Admin' do
-
     background do
       @admin = create(:admin)
     end
 
     scenario 'Unauthenticated user tries to get an access to admin area by direct link' do
-      expect(current_path).to eq(new_user_sessions_path)
+      expect(current_path).to eq(new_user_session_path)
       expect(page).to have_content('необходимо войти')
     end
 
@@ -30,7 +29,7 @@ feature "Admin authenticate", %q{
     scenario 'Admin fill in wrong parameters' do
       sign_in_with 'wrong', 'wrong'
 
-      expect(current_path).to eq(new_user_sessions_path)
+      expect(current_path).to eq(new_user_session_path)
       expect(page).to have_content('неверное')
     end
   end
@@ -38,24 +37,27 @@ feature "Admin authenticate", %q{
   context 'Private office' do
     background do
       @admin = create(:admin)
-      visit edit_registration_path
+      visit new_user_session_path
+      sign_in_with @admin.email, '12345678'
+      visit edit_user_registration_path
     end
 
-    scenario 'Admin visit private office' do
-      expect(current_path).to eq(edit_registration_path)
+    scenario 'Authenticated admin visit private office' do
+      expect(current_path).to eq(edit_user_registration_path)
       expect(page).to have_content('личный кабинет')
     end
 
-    scenario 'Admin update information in private office' do
+    scenario 'Authenticated admin update information in private office' do
       fill_in 'email', with: 'admin_new@mail.ru'
       click_on 'сохранить'
 
-      expect(current_path).to eq(edit_registration_path)
+      expect(current_path).to eq(edit_user_registration_path)
       expect(page).to have_content('данные обновлены')
     end
   end
 
 
+  # this test need roles
   scenario 'Non-admin user tries to log in' do
     us = create(:user)
 
@@ -66,10 +68,10 @@ feature "Admin authenticate", %q{
 
 
   context 'UI links' do
-    context 'Non-authenticated user'
+    context 'Non-authenticated user' do
       scenario 'visit login page' do
         visit root_path
-        click_on 'войти'
+        first('.nav').click_link('войти')
 
         expect(current_path).to eq(new_user_session_path)
         expect(page).to have_content('вход')
@@ -80,7 +82,7 @@ feature "Admin authenticate", %q{
       background do
         @user = create(:admin)
         visit new_user_session_path
-        sign_in_with user.email, '12345678'
+        sign_in_with @user.email, '12345678'
       end
 
       scenario 'logout' do
