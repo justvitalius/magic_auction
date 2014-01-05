@@ -10,4 +10,6 @@ ru:
       user:
         email: email
         password: пароль
+        password_confirmation: подтверждение пароля
+        current_password: текущий (старый) пароль
 
