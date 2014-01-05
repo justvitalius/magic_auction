@@ -7,7 +7,7 @@ feature "Admin authenticate", %q{
  } do
 
   background do
-    visit auctions_path
+    visit admin_root_path
   end
 
   context 'Admin' do
@@ -20,17 +20,17 @@ feature "Admin authenticate", %q{
       expect(page).to have_content('необходимо войти')
     end
 
-    scenario 'Admin successfully logging into admin area' do
-      sign_in_with @admin.email, '12345678'
-
-      expect(current_path).to eq(auctions_path)
-    end
-
     scenario 'Admin fill in wrong parameters' do
       sign_in_with @admin.email, 'wrong'
 
       expect(current_path).to eq(new_user_session_path)
       expect(page).to have_content('Неверный')
+    end
+
+    scenario 'Admin successfully logging into admin area' do
+      sign_in_with @admin.email, '12345678'
+
+      expect(current_path).to eq(admin_root_path)
     end
   end
 
