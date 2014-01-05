@@ -27,10 +27,10 @@ feature "Admin authenticate", %q{
     end
 
     scenario 'Admin fill in wrong parameters' do
-      sign_in_with 'wrong', 'wrong'
+      sign_in_with @admin.email, 'wrong'
 
       expect(current_path).to eq(new_user_session_path)
-      expect(page).to have_content('неверное')
+      expect(page).to have_content('Неверный')
     end
   end
 
@@ -44,15 +44,17 @@ feature "Admin authenticate", %q{
 
     scenario 'Authenticated admin visit private office' do
       expect(current_path).to eq(edit_user_registration_path)
-      expect(page).to have_content('личный кабинет')
+      expect(page).to have_content('Личный кабинет')
     end
 
     scenario 'Authenticated admin update information in private office' do
       fill_in 'email', with: 'admin_new@mail.ru'
+      fill_in 'пароль', with: '12345678'
       click_on 'сохранить'
 
+      save_and_open_page
       expect(current_path).to eq(edit_user_registration_path)
-      expect(page).to have_content('данные обновлены')
+      expect(page).to have_content('запись изменена')
     end
   end
 
@@ -88,7 +90,6 @@ feature "Admin authenticate", %q{
       scenario 'logout' do
         click_on 'выйти'
 
-        expect(current_path).to eq(root_path)
         expect(page).to have_content('вы вышли')
       end
 
@@ -96,7 +97,6 @@ feature "Admin authenticate", %q{
         click_on @user.email
 
         expect(current_path).to eq(edit_user_registration_path)
-        expect(page).to have_content('личный кабинет')
       end
     end
   end
