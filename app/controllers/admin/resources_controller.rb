@@ -1,10 +1,11 @@
 #class ResourcesController < InheritedResources::Base
-class ResourcesController < ApplicationController
+class Admin::ResourcesController < Admin::BaseController
   inherit_resources
   helper_method :attributes, :form_attributes, :sort_column, :sort_direction, :association_attributes, :associations,
                 :searchable?, :scope_badges
 
   respond_to :html
+  actions :all, :except => [ :show ]
   #has_scope :page, default:1
 
   private

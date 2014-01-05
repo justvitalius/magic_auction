@@ -1,6 +1,4 @@
-class CategoriesController < ResourcesController
-  respond_to :html
-  actions :all, :except => [ :show ]
+class Admin::CategoriesController < Admin::ResourcesController
 
   def update
     update!{ categories_path }

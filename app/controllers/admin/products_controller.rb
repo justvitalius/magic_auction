@@ -1,6 +1,4 @@
-class ProductsController < ResourcesController
-  respond_to :html
-  actions :all, :except => [ :show ]
+class Admin::ProductsController < Admin::ResourcesController
 
   def update
     update!{ products_path }

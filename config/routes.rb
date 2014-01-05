@@ -2,9 +2,12 @@ MagicAuction::Application.routes.draw do
 
   devise_for :users, controllers: { registrations: 'user/registrations' }
 
-  root 'auctions#index'
+  root 'site#index'
+  get 'admin' => 'admin/auctions#index', as: :user_root
 
-  resources :categories
-  resources :products
-  resources :auctions
+  namespace 'admin' do
+    resources :categories
+    resources :products
+    resources :auctions
+  end
 end

@@ -1,8 +1,4 @@
-class AuctionsController < ResourcesController
-  respond_to :html
-  actions :all, :except => [ :show ]
-
-  before_filter :authenticate_user!
+class Admin::AuctionsController < Admin::ResourcesController
 
   def update
     update!{ auctions_path }
