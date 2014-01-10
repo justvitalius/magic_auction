@@ -61,5 +61,21 @@ feature "Admin manage auctions", %q{
 
       expect(page).to have_content('новый аукцион')
     end
+
+    scenario 'create new valid auction and product together' do
+      category = create(:category)
+      visit new_admin_auction_path
+      # fill auction fields
+      fill_in 'название', with: 'аукцион 1'
+      select_datetime (DateTime.now - 1.month), from: 'дата окончания'
+      # fill product fields
+      within('.product')
+      fill_in 'название', with: 'product from auction'
+      fill_in 'price', with: '0.01'
+      choose  category.title
+
+      expect{ click_on 'сохранить' }.to change(Product, :count).by(1)
+      expect(page).to eq(admin_auctions_path)
+    end
   end
 end

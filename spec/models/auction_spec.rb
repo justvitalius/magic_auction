@@ -13,6 +13,7 @@ describe Auction do
   describe 'should have Product' do
     it {should belong_to(:product)}
     it {should validate_presence_of(:product_id)}
+    it {should accept_nested_attributes_for(:product)}
   end
 
   describe '#images' do
