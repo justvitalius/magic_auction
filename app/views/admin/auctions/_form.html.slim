@@ -1,0 +1,14 @@
+= simple_nested_form_for [:admin, resource], :html=>{:class=>'form'} do |f|
+  = f.input :title
+  = f.input :expire_date
+  .js-products-select= f.input :product_id, as: :select, collection: @products
+  .js-products-fields
+    = f.fields_for :product do |pr|
+      = pr.input :title
+      = pr.input :price
+      = pr.link_to_remove 'не создавать этот продукт'
+    p= f.link_to_add 'создать новый продукт', :product
+
+
+  .form-group
+    = f.submit :class=>'btn btn-success'

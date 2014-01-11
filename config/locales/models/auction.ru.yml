@@ -10,5 +10,6 @@ ru:
       auction:
         expire_date: дата окончания
         product: товар
+        product_id: товар
         title: название
 
