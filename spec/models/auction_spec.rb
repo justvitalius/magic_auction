@@ -12,8 +12,36 @@ describe Auction do
 
   describe 'should have Product' do
     it {should belong_to(:product)}
-    it {should validate_presence_of(:product_id)}
+    #it {should validate_presence_of(:product_id)}
     it {should accept_nested_attributes_for(:product)}
+
+    describe 'should extra validate Product' do
+      before do
+        @auction = Auction.new(title: 'hello', expire_date: DateTime.now + 1.month)
+      end
+
+      it 'only parent_id' do
+        @auction.product_id = 1
+        expect(@auction).to be_valid
+      end
+
+      it 'empty product_id' do
+        @auction.product_id = nil
+        expect(@auction).to_not be_valid
+      end
+
+      it 'only product' do
+        pr = create(:product)
+        @auction.product = pr
+        expect(@auction).to be_valid
+      end
+
+      it 'empty product' do
+        @auction.product = nil
+        expect(@auction).to_not be_valid
+      end
+    end
+
   end
 
   describe '#images' do

@@ -1,6 +1,6 @@
 class Product < ActiveRecord::Base
   has_many :images, :class_name => 'ProductImage', :dependent => :destroy
-  has_many :auctions, dependent: :destroy
+  has_many :auctions, dependent: :destroy, inverse_of: :product
   belongs_to :category
 
   validates :title, presence: true, length: {maximum: 64}

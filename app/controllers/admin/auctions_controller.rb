@@ -15,18 +15,25 @@ class Admin::AuctionsController < Admin::ResourcesController
   end
 
   def create
-    create!{ admin_auctions_path }
+    create! do
+      puts @auction.product.inspect
+      puts @auction.product_id.inspect
+      puts @auction.valid?.to_s
+      puts @auction.product.try(:valid?).to_s
+      puts @auction.errors.inspect
+      admin_auctions_path
+    end
   end
 
   protected
   def resource_params
     if params.has_key?(:auction)
-      if params[:auction].has_key?(:product_id)
+      if params[:auction].has_key?(:product_id) && !params[:auction][:product_id].empty?
         [params.require(:auction).permit(:title, :expire_date, :product_id)]
       else
         [params.require(:auction).permit(
-             :title, :expire_date,
-             product_params: [:title, :description, :price, :category_id,
+             :title, :expire_date, :product_id,
+             product_attributes: [:title, :description, :price, :category_id, :_destroy,
                               images_attributes: ['id', 'image', 'image_cache', 'product_id', '_destroy']]
          )]
       end
