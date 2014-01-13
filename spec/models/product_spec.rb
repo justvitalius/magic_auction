@@ -40,6 +40,7 @@ describe Product do
 
   describe 'should have category' do
     it { should belong_to(:category) }
+    it { should validate_presence_of(:category_id) }
 
     it 'should clean category when removed category' do
       cat = create(:category)
