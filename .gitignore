@@ -18,6 +18,8 @@
 /public/uploads/*
 /public/sitemap*
 
+/test_images
+
 /db/schema.rb
 
 # Ignore IDE files
