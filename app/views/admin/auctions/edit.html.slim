@@ -1,0 +1,13 @@
+.row
+  .col-xs-12
+    h2.inline= 'редактирование'
+.row
+  .col-xs-12
+    = simple_nested_form_for [:admin, resource], :html=>{:class=>'form'} do |f|
+      = render 'fields', f: f
+      .form-group
+        = f.submit :class=>'btn btn-success'
+.row
+  .col-xs-12
+    = render 'back_show_btns', {resource: resource}
+

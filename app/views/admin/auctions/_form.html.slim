@@ -1,7 +1,5 @@
 = simple_nested_form_for [:admin, resource], :html=>{:class=>'form'} do |f|
-  = f.input :title
-  = f.input :expire_date
-  = f.input :product_id, as: :select, collection: @products, input_html: {class: 'js-auction-product-select'}
+  = render 'fields', f: f
   .js-products-fields.spec-product-fields
     = f.fields_for :product do |pr|
       = pr.input :title

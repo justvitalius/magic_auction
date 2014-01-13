@@ -145,9 +145,10 @@ feature "Admin manage auctions", %q{
       scenario 'load form with default states of UI controls' do
         expect(page).to_not have_content('создать новый продукт')
         expect(page).to_not have_content('не создавать этот продукт')
-        expect(page).to have_content('новый аукцион')
+        expect(page).to have_content('редактирование')
+        expect(page.all('сохранить').count).to eq(1)
         expect(page.all('select:disabled').count).to eq(0)
-        expect(current_path).to eq(new_admin_auction_path)
+        expect(current_path).to eq(edit_admin_auction_path(@auction))
       end
     end
   end
