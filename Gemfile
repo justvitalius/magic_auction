@@ -30,6 +30,8 @@ end
 
 gem 'slim'
 gem 'haml'
+gem 'simple-navigation'
+gem 'simple_navigation_renderers'
 
 gem 'therubyracer'
 gem 'bootstrap-sass', '~> 3.0.3.0'
