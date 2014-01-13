@@ -58,6 +58,13 @@ describe Auction do
     end
   end
 
+  describe '#category' do
+    it { should respond_to(:category) }
+    it 'should return product category' do
+      expect(@auction.category).to eq(@auction.product.category)
+    end
+  end
+
   describe 'should have expire date' do
     it {should validate_presence_of(:expire_date)}
 

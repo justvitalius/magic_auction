@@ -9,6 +9,10 @@ class Auction < ActiveRecord::Base
   accepts_nested_attributes_for :product
 
   def images
-    product.images
+    product.images || []
+  end
+
+  def category
+    product.category || nil
   end
 end
