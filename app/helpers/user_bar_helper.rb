@@ -24,13 +24,19 @@ module UserBarHelper
 
   def private_office_link
     content_tag :li do
-      link_to current_user.email, edit_user_registration_path
+      link_to edit_user_registration_path do
+        content_tag(:i, '', class: 'fa fa-user')+
+        content_tag(:span, current_user.email)
+      end
     end
   end
 
   def logout_link
     content_tag :li do
-      link_to t('.logout'), destroy_user_session_path, method: :delete
+      link_to destroy_user_session_path, method: :delete do
+        content_tag(:i, '', class: 'fa fa-power-off')+
+        content_tag(:span, t('.logout'))
+      end
     end
   end
 end

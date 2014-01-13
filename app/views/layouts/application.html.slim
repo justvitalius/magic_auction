@@ -9,8 +9,9 @@ html
     .container
       .row
         .navbar.navbar-default
-          = render_navigation context: :admin, expand_all: true
-          = user_bar
+          .collapse.navbar-collapse
+            = render_navigation context: :admin, expand_all: true
+            = user_bar
 
       .row
         .col-xs-12
