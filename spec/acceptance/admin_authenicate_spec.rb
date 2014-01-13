@@ -73,8 +73,8 @@ feature "Admin authenticate", %q{
     context 'Non-authenticated user' do
       scenario 'visit login page' do
         visit root_path
-        first('.nav').click_link('войти')
-
+        save_and_open_page
+        page.all('.nav a', text: 'войти').map(&:click)
         expect(current_path).to eq(new_user_session_path)
         expect(page).to have_content('вход')
       end
