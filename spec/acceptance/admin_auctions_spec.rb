@@ -67,6 +67,7 @@ feature "Admin manage auctions", %q{
         expect(page.all('.spec-product-fields').count).to eq(1)
       end
     end
+
     scenario 'create new valid auction with existed product' do
       visit new_admin_auction_path
 
@@ -127,6 +128,27 @@ feature "Admin manage auctions", %q{
       expect{ click_on 'сохранить' }.to change(Product, :count).by(0)
       expect(page.all('select:disabled').count).to_not eq(0)
       expect(current_path).to eq(admin_auctions_path)
+    end
+  end
+
+  context 'should edit existed auction' do
+    background do
+      @product = create(:product, title: 'product for auction')
+      @auction = create(:auction)
+    end
+
+    context 'view and interact existed auction form', js: true do
+      background do
+        visit edit_admin_auction_path(@auction)
+      end
+
+      scenario 'load form with default states of UI controls' do
+        expect(page).to_not have_content('создать новый продукт')
+        expect(page).to_not have_content('не создавать этот продукт')
+        expect(page).to have_content('новый аукцион')
+        expect(page.all('select:disabled').count).to eq(0)
+        expect(current_path).to eq(new_admin_auction_path)
+      end
     end
   end
 end
