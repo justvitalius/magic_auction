@@ -2,10 +2,12 @@
   = f.input :title
   = f.input :expire_date
   = f.input :product_id, as: :select, collection: @products, input_html: {class: 'js-auction-product-select'}
-  .js-products-fields
+  .js-products-fields.spec-product-fields
     = f.fields_for :product do |pr|
       = pr.input :title
       = pr.input :price
+      - categories.roots.each do |node|
+        = render_form_subtree node, pr
       = pr.link_to_remove 'не создавать этот продукт'
     p= f.link_to_add 'создать новый продукт', :product
 
