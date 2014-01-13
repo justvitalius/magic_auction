@@ -65,21 +65,24 @@ feature "Admin manage auctions", %q{
     end
 
     # not working without js
-    #scenario 'create new valid auction and product together' do
-    #  category = create(:category)
-    #  visit new_admin_auction_path
-    #  # fill auction fields
-    #  fill_in 'название', with: 'аукцион 1'
-    #  select_datetime (DateTime.now - 1.month), from: 'дата окончания'
-    #  # fill product fields
-    #  within('.product_fields') do
-    #    fill_in 'название', with: 'product from auction'
-    #    fill_in 'price', with: '0.01'
-    #    choose  category.title
-    #  end
-    #
-    #  expect{ click_on 'сохранить' }.to change(Product, :count).by(1)
-    #  expect(page).to eq(admin_auctions_path)
-    #end
+    scenario 'create new valid auction and product together', js: true do
+      category = create(:category)
+
+      visit new_admin_auction_path
+      # fill auction fields
+      fill_in 'название', with: 'аукцион 1'
+      select_datetime (DateTime.now + 1.month), from: 'дата окончания'
+      # fill product fields
+      click_on 'создать новый продукт'
+      #save_screenshot('test_images/phantom.png', :full => true)
+      within('.spec-product-fields') do
+        fill_in 'название', with: 'product from auction'
+        fill_in 'цена', with: '0.01'
+        #choose  category.id
+        all("input[type=radio][value='#{category.id}']").map(&:click)
+      end
+      expect{ click_on 'сохранить' }.to change(Product, :count).by(1)
+      expect(current_path).to eq(admin_auctions_path)
+    end
   end
 end
