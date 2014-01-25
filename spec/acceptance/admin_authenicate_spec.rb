@@ -6,40 +6,16 @@ feature "Admin authenticate", %q{
   I want to logging on admin area
  } do
 
-  background do
-    visit admin_root_path
-  end
+  let(:path){ admin_root_path }
+  let(:admin){ create(:admin) }
 
-  context 'Admin' do
-    background do
-      @admin = create(:admin)
-    end
-
-    scenario 'Unauthenticated user tries to get an access to admin area by direct link' do
-      expect(current_path).to eq(new_user_session_path)
-      expect(page).to have_content('необходимо войти')
-    end
-
-    scenario 'Admin fill in wrong parameters' do
-      sign_in_with @admin.email, 'wrong'
-
-      expect(current_path).to eq(new_user_session_path)
-      expect(page).to have_content('Неверный')
-    end
-
-    scenario 'Admin successfully logging into admin area' do
-      sign_in_with @admin.email, '12345678'
-
-      expect(current_path).to eq(admin_root_path)
-    end
-  end
+  it_behaves_like 'Admin_accessible'
 
   context 'Private office' do
+    let(:path){ edit_user_registration_path }
+
     background do
-      @admin = create(:admin)
-      visit new_user_session_path
-      sign_in_with @admin.email, '12345678'
-      visit edit_user_registration_path
+      prepare_testing_area
     end
 
     scenario 'Authenticated admin visit private office' do
@@ -73,7 +49,7 @@ feature "Admin authenticate", %q{
     context 'Non-authenticated user' do
       scenario 'visit login page' do
         visit root_path
-        save_and_open_page
+        #save_and_open_page
         page.all('.nav a', text: 'войти').map(&:click)
         expect(current_path).to eq(new_user_session_path)
         expect(page).to have_content('вход')
@@ -81,10 +57,10 @@ feature "Admin authenticate", %q{
     end
 
     context 'Authenticated user' do
+      let(:path){ new_user_session_path }
+
       background do
-        @user = create(:admin)
-        visit new_user_session_path
-        sign_in_with @user.email, '12345678'
+        prepare_testing_area
       end
 
       scenario 'logout' do
@@ -94,7 +70,7 @@ feature "Admin authenticate", %q{
       end
 
       scenario 'visit private office' do
-        click_on @user.email
+        click_on admin.email
 
         expect(current_path).to eq(edit_user_registration_path)
       end
