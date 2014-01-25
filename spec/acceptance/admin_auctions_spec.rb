@@ -6,10 +6,11 @@ feature "Admin manage auctions", %q{
   I want to view, create, edit and delete auctions.
  } do
 
+  let(:path){ new_user_session_path }
+  let(:admin){ create(:admin) }
+
   background  do
-    @admin = create(:admin)
-    visit new_user_session_path
-    sign_in_with @admin.email, '12345678'
+    prepare_testing_area
   end
 
   scenario 'should render auctions list' do

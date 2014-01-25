@@ -6,10 +6,11 @@ feature "Admin manage products", %q{
   I want to manage products.
  } do
 
+  let(:admin){ create(:admin) }
+  let(:path){ new_user_session_path }
+
   background  do
-    @admin = create(:admin)
-    visit new_user_session_path
-    sign_in_with @admin.email, '12345678'
+    prepare_testing_area
   end
 
   scenario 'should render products list' do
