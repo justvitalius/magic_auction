@@ -12,7 +12,7 @@ module Features
 
     def prepare_testing_area
       visit path
-      sign_in_with admin.email, 12345678
+      sign_in_with admin.email, '12345678'
     end
   end
 end

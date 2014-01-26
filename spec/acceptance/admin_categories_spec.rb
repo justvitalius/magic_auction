@@ -8,44 +8,46 @@ feature "Admin manage categories", %q{
 
   let(:admin){ create(:admin) }
   let(:path){ new_user_session_path }
+  let(:path){ admin_categories_path }
+  let(:collection_title){ 'категории' }
+  let(:collection){ 3.times.map{ |i| create(:category, title: "category-#{i}") } }
 
-  background  do
-    prepare_testing_area
-  end
+  it_behaves_like 'Collection_listable'
+  it_behaves_like 'Collection_listable'
 
-  describe 'should render categories collection' do
-    let(:path){ admin_categories_path }
-    let(:collection_title){ 'категории' }
-    let(:collection){ 3.times.map{ |i| create(:category, title: "category-#{i}") } }
 
-    it_behaves_like 'Collection_listable'
-  end
 
-  scenario 'should render categories' do
-    visit admin_categories_path
-    expect(page).to have_content('категории')
-  end
-
-  context 'should edit exists categories' do
-    background do
-      create(:category)
+  describe 'should manage in admin area' do
+    background  do
+      prepare_testing_area
     end
 
-    scenario 'edit exists category' do
+    scenario 'should render categories' do
       visit admin_categories_path
-      #save_and_open_page
-      first('a', text: 'редактировать').click
-      expect(page).to have_content('редактирование')
-    end
-  end
-
-  context 'should create new category' do
-    scenario 'view new category form' do
-      visit new_admin_category_path
-      expect(page).to have_content('новая категория')
+      expect(page).to have_content('категории')
     end
 
-    scenario 'create category with parent'
-    scenario 'create root category'
+    context 'should edit exists categories' do
+      background do
+        create(:category)
+      end
+
+      scenario 'edit exists category' do
+        visit admin_categories_path
+        #save_and_open_page
+        first('a', text: 'редактировать').click
+        expect(page).to have_content('редактирование')
+      end
+    end
+
+    context 'should create new category' do
+      scenario 'view new category form' do
+        visit new_admin_category_path
+        expect(page).to have_content('новая категория')
+      end
+
+      scenario 'create category with parent'
+      scenario 'create root category'
+    end
   end
 end
