@@ -2,10 +2,7 @@
 ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
-
 require 'capybara/rails'
-require 'capybara/poltergeist'
-Capybara.javascript_driver = :poltergeist
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
@@ -45,27 +42,6 @@ RSpec.configure do |config|
   # the seed, which is printed after each run.
   #     --seed 1234
   config.order = "random"
-
-  config.include Features::SelectDatesAndTimesHelper, type: :feature
-  config.include Features::SessionsHelper, type: :feature
-
-
-  # autosave errors screenshots
-  # source http://viget.com/extend/auto-saving-screenshots-on-test-failures-other-capybara-tricks
-  config.after(:each) do
-    if example.exception && example.metadata[:js]
-      meta = example.metadata
-      filename = File.basename(meta[:file_path])
-      line_number = meta[:line_number]
-      screenshot_name = "screenshot-#{filename}-#{line_number}.png"
-      screenshot_path = "#{Rails.root.join("test_images")}/#{screenshot_name}"
-
-      page.save_screenshot(screenshot_path, full: true)
-
-      puts meta[:full_description] + "\n  Screenshot: #{screenshot_path}"
-    end
-  end
-
 end
 
 

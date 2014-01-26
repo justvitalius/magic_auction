@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'acceptance/acceptance_helper'
 
 feature "Admin manage categories", %q{
   In order to manage auction's settings
@@ -11,6 +11,14 @@ feature "Admin manage categories", %q{
 
   background  do
     prepare_testing_area
+  end
+
+  describe 'should render categories collection' do
+    let(:path){ admin_categories_path }
+    let(:collection_title){ 'категории' }
+    let(:collection){ 3.times.map{ |i| create(:category, title: "category-#{i}") } }
+
+    it_behaves_like 'Collection_listable'
   end
 
   scenario 'should render categories' do

@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'acceptance/acceptance_helper'
 
 feature "Admin manage auctions", %q{
   In order to manage auction's settings
@@ -8,6 +8,7 @@ feature "Admin manage auctions", %q{
 
   let(:path){ new_user_session_path }
   let(:admin){ create(:admin) }
+  let(:collection){ 3.times.map{ |i| create(:auction, title: "auction-#{i}") } }
 
   background  do
     prepare_testing_area
