@@ -35,16 +35,6 @@ feature "Admin authenticate", %q{
   end
 
 
-  # this test need roles
-  scenario 'Non-admin user tries to log in' do
-    #us = create(:user)
-    #
-    #sign_in_with us.email, '12345678'
-    #
-    #expect(page).to have_content('У вас нет прав доступа к этой странице')
-  end
-
-
   context 'UI links' do
     context 'Non-authenticated user' do
       scenario 'visit login page' do
