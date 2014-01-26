@@ -17,7 +17,7 @@ feature "Admin manage categories", %q{
 
 
 
-  describe 'should manage in admin area' do
+  describe 'should work with admin area' do
     background  do
       prepare_testing_area
     end

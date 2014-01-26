@@ -1,9 +1,6 @@
 shared_examples_for 'Collection_listable' do
   background do
-    #visit new_user_session_path
-    #sign_in_with admin.email, '12345678'
     prepare_testing_area
-    #visit path
   end
 
   scenario 'should render collection list' do

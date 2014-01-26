@@ -12,25 +12,9 @@ feature "Admin manage auctions", %q{
   let(:collection_title){ 'аукционы' }
 
 
-  #background  do
-  #  prepare_testing_area
-  #end
-
   it_behaves_like 'Admin_accessible'
   it_behaves_like 'Collection_listable'
 
-
-  #context 'should edit exists auctions' do
-  #  background do
-  #    create(:auction)
-  #    prepare_testing_area
-  #  end
-  #
-  #  scenario 'edit exists auction' do
-  #    click_on 'редактировать'
-  #    expect(page).to have_content('редактирование')
-  #  end
-  #end
 
   describe 'work with admin area' do
     background  do
@@ -40,7 +24,6 @@ feature "Admin manage auctions", %q{
     context 'should create new auction' do
       background do
         @product = create(:product, title: 'product for auction')
-        #prepare_testing_area
       end
 
 
@@ -152,7 +135,6 @@ feature "Admin manage auctions", %q{
 
           scenario 'load form with default states of UI controls' do
             visit edit_admin_auction_path(auction)
-            save_and_open_page
 
             expect(page).to_not have_content('создать новый продукт')
             expect(page).to_not have_content('не создавать этот продукт')
