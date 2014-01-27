@@ -8,7 +8,7 @@ feature "All user view auctions list", %q{
 
   describe 'auctions list on root path' do
 
-    let!(:current_auctions){ 5.times{ |i| create(:auction, title: "current-auction-#{i}") } }
+    let!(:current_auctions){ 5.times.map{ |i| create(:auction, title: "current-auction-#{i}") } }
     let!(:ended_auctions) do
       5.times.map do |i|
         a = create(:auction, title: "ended-auction-#{i}")
