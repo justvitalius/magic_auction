@@ -1,5 +1,6 @@
 require 'spec_helper'
 
+# TODO: как вообще эти тесты
 describe Auction do
 
   let(:auction){ create(:auction) }
