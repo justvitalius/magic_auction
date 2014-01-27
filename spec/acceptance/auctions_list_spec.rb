@@ -13,6 +13,7 @@ feature "All user view auctions list", %q{
       5.times.map do |i|
         a = create(:auction, title: "ended-auction-#{i}")
         a.update_attribute(:expire_date, DateTime.yesterday)
+        a
       end
     end
 
