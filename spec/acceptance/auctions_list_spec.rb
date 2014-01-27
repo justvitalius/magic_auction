@@ -11,7 +11,7 @@ feature "All user view auctions list", %q{
     let!(:current_auctions){ 5.times{ |i| create(:auction, title: "current-auction-#{i}") } }
     let!(:ended_auctions) do
       5.times.map do |i|
-        a = create(:auction, title: "current-auction-#{i}")
+        a = create(:auction, title: "ended-auction-#{i}")
         a.update_attribute(:expire_date, DateTime.yesterday)
       end
     end
