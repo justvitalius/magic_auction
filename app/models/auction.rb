@@ -8,6 +8,9 @@ class Auction < ActiveRecord::Base
 
   accepts_nested_attributes_for :product
 
+  scope :active, -> { where('expire_date > ?', Time.now) }
+  scope :inactive, -> { where('expire_date <= ?', Time.now) }
+
   def images
     product.images || []
   end
