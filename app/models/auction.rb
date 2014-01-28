@@ -10,6 +10,9 @@ class Auction < ActiveRecord::Base
   # TODO: эту валидацию можно оформить по другому?
   validates :expire_date, presence: true, timeliness: { on_or_after: lambda{ DateTime.now }, on_or_before: lambda{ DateTime.now + 1.year }, allow_blank: false }
 
+
+  # TODO: как сделать правильно статусы аукционы? Через state-machine? Они вообще нужны?
+
   accepts_nested_attributes_for :product
 
   scope :active, -> { where('expire_date > ?', Time.now) }
