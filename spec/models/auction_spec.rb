@@ -16,7 +16,7 @@ describe Auction do
 
     describe 'should extra validate Product' do
       before do
-        @auction = Auction.new(title: 'hello', expire_date: DateTime.now + 1.month)
+        @auction = Auction.new(title: 'hello', expire_date: DateTime.now + 1.month, start_date: DateTime.now + 1.seconds)
       end
 
       it 'only parent_id' do
@@ -88,6 +88,43 @@ describe Auction do
       it 'expire date equal to 1 year from now' do
         auction.expire_date = DateTime.now + 1.year
         expect(auction).to be_valid
+      end
+    end
+  end
+
+  describe 'should have start-date' do
+    it {should validate_presence_of(:start_date)}
+
+    it 'should not be earlier than now' do
+      auction.start_date = DateTime.now - 1.seconds
+      expect(auction).not_to be_valid
+    end
+
+
+    it 'should be later than now' do
+      auction.start_date = DateTime.now + 1.seconds
+      expect(auction).to be_valid
+    end
+
+    it 'should be later than today' do
+      auction.start_date = DateTime.now + 1.days
+      expect(auction).to be_valid
+    end
+
+    describe 'should be earlier than expire-date' do
+      it 'should be valid if earlier expire-date than 12 hours' do
+        auction.start_date = auction.expire_date - 1.days
+        expect(auction).to be_valid
+      end
+
+      it 'should be not valid if equal expire-date' do
+        auction.start_date = auction.expire_date
+        expect(auction).not_to be_valid
+      end
+
+      it 'should be not valid if later expire-date' do
+        auction.start_date = auction.expire_date + 1.days
+        expect(auction).not_to be_valid
       end
     end
   end

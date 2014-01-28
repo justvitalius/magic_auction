@@ -2,6 +2,7 @@ FactoryGirl.define do
   factory :auction do
     title 'auction'
     expire_date DateTime.now + 1.month
+    start_date DateTime.now + 1.days
     product
 
     factory :auction_with_images do
