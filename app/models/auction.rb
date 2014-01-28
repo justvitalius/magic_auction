@@ -16,7 +16,7 @@ class Auction < ActiveRecord::Base
   # TODO: почему в этом геме on_or_after не работает в случае если дата равна DateTime.now
   validates :start_date, presence: true, timeliness: { on_or_after: lambda{ DateTime.now }, on_or_before: lambda{ |a| a.expire_date - 12.hours }, allow_blank: false }
 
-
+  # TODO: почему при выполнении тестов, он вставляет время -4часа ? вместо 00:40 он пишет 20:40 в результатах тестирования и после save_and_open_page
   # TODO: как сделать правильно статусы аукционы? Через state-machine? Они вообще нужны?
   # TODO: стоит ли писать в миграциях свойства типа default: или null:false
 

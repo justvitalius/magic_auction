@@ -1,5 +1,6 @@
 require 'xpath'
 
+# TODO: есть ли готовые способы выбора даты-времени в capybara, а то вот я нашел и доделал эту заготовку
 module Features
   module SelectDatesAndTimesHelper
     def select_date (date, options = {})
@@ -25,6 +26,7 @@ module Features
       select(time.min.to_s.rjust(2, '0'), :from => "#{id_prefix}_5i")
     end
 
+    # TODO: имя select_datetime пересекатеся с классическим хэлпером в самих рельсах, как его можно вызывать в спеках,чтобы вызывался только этот метод? Я придумал добавить префикс только.
     def select_datetime (datetime, options = {})
       select_date(datetime, options)
       select_time(datetime, options)

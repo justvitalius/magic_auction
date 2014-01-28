@@ -69,6 +69,7 @@ feature "Admin manage auctions", %q{
           # fill auction fields
           fill_in 'название', with: 'аукцион 1'
           select_datetime (DateTime.now + 1.month), from: 'дата окончания'
+          select_datetime (DateTime.now + 1.days), from: 'дата начала'
           # fill product fields
           click_on 'создать новый продукт'
 
@@ -88,6 +89,8 @@ feature "Admin manage auctions", %q{
           visit new_admin_auction_path
           # fill auction fields
           fill_in 'название', with: 'аукцион 1'
+
+          # TODO: почему он здесь не выбирает дату? Т.е.он вставляет только
           select_datetime (DateTime.now + 1.month), from: 'дата окончания'
           # fill product fields
           click_on 'создать новый продукт'
@@ -108,9 +111,11 @@ feature "Admin manage auctions", %q{
         visit new_admin_auction_path
 
         fill_in 'название', with: 'аукцион 1'
-        select_datetime DateTime.now, from: 'дата окончания'
+        select_datetime (DateTime.now + 2.month), from: 'дата окончания'
+        select_datetime (DateTime.now + 1.days), from: 'дата начала'
         select @product.title, from: 'товар'
-
+        #save_and_open_page
+        #click_on 'сохранить'
         expect{ click_on 'сохранить' }.to change(Auction, :count).by(1)
         expect(current_path).to eq(admin_auctions_path)
         expect(page).to have_content('аукционы')

@@ -26,13 +26,14 @@ class Admin::AuctionsController < Admin::ResourcesController
   end
 
   protected
+  # TODO: как вот эти страшные проверки убрать. Тут бывает приходит предмет,а бывает не приходит и как бы это зарефакторить
   def resource_params
     if params.has_key?(:auction)
       if params[:auction].has_key?(:product_id) && !params[:auction][:product_id].empty?
-        [params.require(:auction).permit(:title, :expire_date, :product_id)]
+        [params.require(:auction).permit(:title, :expire_date, :start_date, :product_id)]
       else
         [params.require(:auction).permit(
-             :title, :expire_date, :product_id,
+             :title, :expire_date, :start_date, :product_id,
              product_attributes: [:title, :description, :price, :category_id, :_destroy,
                               images_attributes: ['id', 'image', 'image_cache', 'product_id', '_destroy']]
          )]
