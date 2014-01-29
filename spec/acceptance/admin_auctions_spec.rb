@@ -62,25 +62,40 @@ feature "Admin manage auctions", %q{
           end
         end
 
-        scenario 'create new valid auction and product together' do
-          category = create(:category)
+        # TODO: следующие два теста очень странные.
+        # Если выводить страницу через save_and_open_page,
+        # то все инпуты пусты, но при этом итоговое сохранение проходит
+        context 'create new valid auction and product together' do
+          background do
+            category = create(:category)
 
-          visit new_admin_auction_path
-          # fill auction fields
-          fill_in 'название', with: 'аукцион 1'
-          select_datetime (DateTime.now + 1.month), from: 'дата окончания'
-          select_datetime (DateTime.now + 1.days), from: 'дата начала'
-          # fill product fields
-          click_on 'создать новый продукт'
+            visit new_admin_auction_path
+            # fill auction fields
+            fill_in 'название', with: 'аукцион 1'
+            select_datetime (DateTime.now + 1.month), from: 'дата окончания'
+            select_datetime DateTime.now, from: 'дата начала'
+            # fill product fields
+            click_on 'создать новый продукт'
 
-          within('.spec-product-fields') do
-            fill_in 'название', with: 'product from auction'
-            fill_in 'цена', with: '0.01'
-            all("input[type=radio][value='#{category.id}']").map(&:click)
+            within('.spec-product-fields') do
+              fill_in 'название', with: 'product from auction'
+              fill_in 'цена', with: '0.01'
+              all("input[type=radio][value='#{category.id}']").map(&:click)
+            end
           end
-          expect(page.all('select:disabled').count).to_not eq(0)
-          expect{ click_on 'сохранить' }.to change(Product, :count).by(1)
-          expect(current_path).to eq(admin_auctions_path)
+
+          scenario 'should create new one Product' do
+            expect(page.all('select:disabled').count).to_not eq(0)
+            expect{ click_on 'сохранить' }.to change(Product, :count).by(1)
+            expect(current_path).to eq(admin_auctions_path)
+          end
+
+          scenario 'should create new one Auction' do
+            save_and_open_page
+            expect(page.all('select:disabled').count).to_not eq(0)
+            expect{ click_on 'сохранить' }.to change(Auction, :count).by(1)
+            expect(current_path).to eq(admin_auctions_path)
+          end
         end
 
         scenario 'tries to create new valid auction and invalid product together' do
@@ -92,6 +107,7 @@ feature "Admin manage auctions", %q{
 
           # TODO: почему он здесь не выбирает дату? Т.е.он вставляет только
           select_datetime (DateTime.now + 1.month), from: 'дата окончания'
+          select_datetime (DateTime.now), from: 'дата начала'
           # fill product fields
           click_on 'создать новый продукт'
 
@@ -106,7 +122,7 @@ feature "Admin manage auctions", %q{
         end
       end
 
-
+      # TODO: данный тест странный. Он проходит, но если загрузить страницу в браузере, то на месте выбора Продукта из ниспадающего списка два варианта ДА/НЕТ
       scenario 'create new valid auction with existed product' do
         visit new_admin_auction_path
 
