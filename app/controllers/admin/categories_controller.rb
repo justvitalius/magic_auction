@@ -9,8 +9,10 @@ class Admin::CategoriesController < Admin::ResourcesController
   end
 
   protected
-  def resource_params
-    [params.require(:category).permit(:title, :parent_id, :image)] if params.has_key?(:category)
+  def build_resource_params
+    [params.fetch(:widget, {}).permit(
+         :title, :parent_id, :image
+     )]
   end
 
 end
