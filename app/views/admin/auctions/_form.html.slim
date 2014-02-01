@@ -2,6 +2,7 @@
   = render 'fields', f: f
   .js-products-fields.spec-product-fields
     = f.fields_for :product do |pr|
+      - pr.object.errors.empty? # выводим ошибки после проверки
       = pr.input :title
       = pr.input :price
       - categories.roots.each do |node|

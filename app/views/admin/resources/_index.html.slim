@@ -2,7 +2,7 @@ table.table.table-striped.table-hover
   thead
     tr
       - attributes.each do |attr|
-        th= sortable attr, resource_class.human_attribute_name(attr)
+        th= resource_class.human_attribute_name(attr)
   tbody
     - collection.each do |resource|
       tr

@@ -48,6 +48,7 @@ feature "Admin manage auctions", %q{
             expect(page).to_not have_content('создать новый продукт')
             expect(page).to have_content('не создавать этот продукт')
             expect(page.all('.spec-product-fields').count).to eq(1)
+            # page.has_css? посмотреть в документации
             expect(page.all('select:disabled').count).to eq(1)
           end
 
@@ -91,7 +92,7 @@ feature "Admin manage auctions", %q{
           end
 
           scenario 'should create new one Auction' do
-            save_and_open_page
+            #save_and_open_page
             expect(page.all('select:disabled').count).to_not eq(0)
             expect{ click_on 'сохранить' }.to change(Auction, :count).by(1)
             expect(current_path).to eq(admin_auctions_path)
@@ -115,10 +116,13 @@ feature "Admin manage auctions", %q{
             fill_in 'название', with: 'product from auction'
             #fill_in 'цена', with: '0.01'
             all("input[type=radio][value='#{category.id}']").map(&:click)
+            # choose label_name
+            # check label_name
           end
-          expect{ click_on 'сохранить' }.to change(Product, :count).by(0)
+          expect{ click_on 'сохранить' }.to_not change(Product, :count)
           expect(page.all('select:disabled').count).to_not eq(0)
           expect(current_path).to eq(admin_auctions_path)
+          # написать,чтобы не создавался Аукцион
         end
       end
 
@@ -134,6 +138,7 @@ feature "Admin manage auctions", %q{
         #click_on 'сохранить'
         expect{ click_on 'сохранить' }.to change(Auction, :count).by(1)
         expect(current_path).to eq(admin_auctions_path)
+        # проверить,что этот аукцион появился в списке, это будет тест с точки зрения пользователя.
         expect(page).to have_content('аукционы')
       end
 
@@ -145,6 +150,7 @@ feature "Admin manage auctions", %q{
         click_on 'сохранить'
 
         expect(page).to have_content('новый аукцион')
+        # показать, что пользователь видит ошибку.
       end
     end
 

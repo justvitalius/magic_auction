@@ -32,6 +32,7 @@ describe Category do
     it 'should have #parent' do
       expect(@cat1.parent).to eq(@cat2)
     end
+    # можно написать на respond_to, т.к.данные тесты проверяют функционал гема.
   end
 
   describe 'should delete parent and children' do

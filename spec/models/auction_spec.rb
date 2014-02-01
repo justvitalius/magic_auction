@@ -19,17 +19,20 @@ describe Auction do
         @auction = Auction.new(title: 'hello', expire_date: DateTime.now + 1.month, start_date: DateTime.now + 1.seconds)
       end
 
-      it 'only parent_id' do
+      # можно заменить на одну строку от should_matchers
+      it 'should be valid with parent_id' do
         @auction.product_id = 1
         expect(@auction).to be_valid
       end
 
-      it 'empty product_id' do
+      it 'should not be valid with empty product_id' do
         @auction.product_id = nil
         expect(@auction).to_not be_valid
       end
 
-      it 'only product' do
+      # следующие два не надо
+      it 'should be valid with product' do
+        # лучше product чем pr
         pr = create(:product)
         @auction.product = pr
         expect(@auction).to be_valid
@@ -40,6 +43,7 @@ describe Auction do
         expect(@auction).to_not be_valid
       end
     end
+
 
   end
 
@@ -59,7 +63,8 @@ describe Auction do
   end
 
   describe '#category' do
-    it { should respond_to(:category) }
+    # излишняя проверка, нижняя строка проверяет тоже самое
+    #it { should respond_to(:category) }
     it 'should return product category' do
       expect(auction.category).to eq(auction.product.category)
     end
@@ -75,13 +80,13 @@ describe Auction do
 
 
     it 'should have expire date until today' do
-      auction.expire_date = DateTime.now - 5.month
+      auction.expire_date = DateTime.now - 1.day
       expect(auction).not_to be_valid
     end
 
     describe 'should have expire date not later then 1 year later' do
       it 'expire date more than 1 year from now' do
-        auction.expire_date = DateTime.now + 1.year + 1.day
+        auction.expire_date = DateTime.now + 1.year + 1.second
         expect(auction).not_to be_valid
       end
 
@@ -90,13 +95,18 @@ describe Auction do
         expect(auction).to be_valid
       end
     end
+
+    it 'should be later than start_date' do
+      auction.start_date = auction.expire_date + 1.second
+      expect(auction).not_to be_valid
+    end
   end
 
   describe 'should have start-date' do
     it {should validate_presence_of(:start_date)}
 
     it 'should not be earlier than now' do
-      auction.start_date = DateTime.now - 1.seconds
+      auction.start_date = DateTime.now - 2.minutes - 1.seconds
       expect(auction).not_to be_valid
     end
 
@@ -138,16 +148,23 @@ describe Auction do
         a
       end
     end
+    let!(:futured_auctions){
+      5.times.map{ |i| create(:auction, title: "tomorrow-auction-#{i}", start_date: DateTime.now+(i+1).day) }
+    }
+
 
     it '#active' do
-      as = Auction.active
-      expect(as - current_auctions).to eq([])
+      expect(Auction.active).to eq(current_auctions)
     end
 
     it '#inactive' do
-      as = Auction.inactive
-      expect(as - ended_auctions).to eq([])
+      expect(Auction.inactive).to eq(ended_auctions)
     end
+
+    it '#futured' do
+      expect(Auction.futured).to eq(futured_auctions)
+    end
+
   end
 
 

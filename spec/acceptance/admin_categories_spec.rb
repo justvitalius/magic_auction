@@ -12,7 +12,8 @@ feature "Admin manage categories", %q{
   let(:collection_title){ 'категории' }
   let(:collection){ 3.times.map{ |i| create(:category, title: "category-#{i}") } }
 
-  it_behaves_like 'Collection_listable'
+  #it_behaves_like 'Collection_listable'
+  # проверка на администратора
   it_behaves_like 'Collection_listable'
 
 

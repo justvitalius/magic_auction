@@ -10,7 +10,7 @@ class Admin::CategoriesController < Admin::ResourcesController
 
   protected
   def build_resource_params
-    [params.fetch(:widget, {}).permit(
+    [params.fetch(:category, {}).permit(
          :title, :parent_id, :image
      )]
   end

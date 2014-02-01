@@ -10,7 +10,7 @@ class Admin::ProductsController < Admin::ResourcesController
 
   protected
   def build_resource_params
-    [params.fetch(:widget, {}).permit(
+    [params.fetch(:product, {}).permit(
          :title, :description, :price, :category_id,
          images_attributes: ['id', 'image', 'image_cache', 'product_id', '_destroy']
      )]

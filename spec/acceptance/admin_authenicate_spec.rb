@@ -40,6 +40,7 @@ feature "Admin authenticate", %q{
       scenario 'visit login page' do
         visit root_path
         #save_and_open_page
+        # через within сделать
         page.all('.nav a', text: 'войти').map(&:click)
         expect(current_path).to eq(new_user_session_path)
         expect(page).to have_content('вход')
@@ -55,7 +56,7 @@ feature "Admin authenticate", %q{
 
       scenario 'logout' do
         click_on 'выйти'
-
+        # проверка на какой странице нахожусь после выхода
         expect(page).to have_content('Вы вышли')
       end
 

@@ -5,7 +5,6 @@ FactoryGirl.define do
     price 100.00
     category
 
-    # TODO: это можно сделать короче?
     factory :product_with_images do
       title 'product with images'
       price 100.00

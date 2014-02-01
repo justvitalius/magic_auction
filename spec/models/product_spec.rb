@@ -18,7 +18,8 @@ describe Product do
     it { should have_many(:images).class_name('ProductImage').dependent(:destroy) }
 
     it 'should have empty images by default' do
-      expect(@pr.images).to eq([])
+      #expect(@pr.images).to eq([])
+      expect(@pr.images).to be_empty
     end
 
     it 'should have several images' do
