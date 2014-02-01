@@ -10,6 +10,15 @@ describe Auction do
     it {should ensure_length_of(:title).is_at_most(64)}
   end
 
+  describe '#time_step' do
+    pending
+  end
+
+  describe '#price_step' do
+    it { should validate_presence_of(:price_step) }
+    it { should validate_numericality_of(:price_step).is_greater_than_or_equal_to BigDecimal.new('0.01') }
+  end
+
   describe 'should have Product' do
     it { should belong_to(:product) }
     it { should accept_nested_attributes_for(:product) }
@@ -139,7 +148,7 @@ describe Auction do
     end
   end
 
-  describe 'auctions scopes by expire-date' do
+  describe 'auctions scopes by actual dates' do
     let!(:current_auctions){ 5.times.map{ |i| create(:auction, title: "current-auction-#{i}") } }
     let!(:ended_auctions) do
       5.times.map do |i|
