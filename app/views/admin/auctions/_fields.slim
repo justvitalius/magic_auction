@@ -1,4 +1,9 @@
 = f.input :title
 = f.input :expire_date
 = f.input :start_date
-= f.input :product_id, as: :select, collection: @products, input_html: {class: 'js-auction-product-select'}
+
+= f.input :price_step
+= f.input :time_step, as: :radio_buttons, collection: Auction::TIME_STEPS.map{|t| [t("activerecord.attributes.auction.time_steps.#{t}s"), t] }
+
+/= f.input :product_id, as: :select, collection: @products, label_method: :title, input_html: {class: 'js-auction-product-select'}
+= f.association :product, input_html: {class: 'js-auction-product-select'}

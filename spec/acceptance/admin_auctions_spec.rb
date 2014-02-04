@@ -75,6 +75,9 @@ feature "Admin manage auctions", %q{
             fill_in 'название', with: 'аукцион 1'
             select_datetime (DateTime.now + 1.month), from: 'дата окончания'
             select_datetime DateTime.now, from: 'дата начала'
+
+            fill_in 'шаг ставки', with: 100.0
+            choose '60 секунд'
             # fill product fields
             click_on 'создать новый продукт'
 
@@ -106,9 +109,11 @@ feature "Admin manage auctions", %q{
           # fill auction fields
           fill_in 'название', with: 'аукцион 1'
 
-          # TODO: почему он здесь не выбирает дату? Т.е.он вставляет только
           select_datetime (DateTime.now + 1.month), from: 'дата окончания'
           select_datetime (DateTime.now), from: 'дата начала'
+
+          fill_in 'шаг ставки', with: 100.0
+          choose '60 секунд'
           # fill product fields
           click_on 'создать новый продукт'
 
@@ -133,6 +138,8 @@ feature "Admin manage auctions", %q{
         fill_in 'название', with: 'аукцион 1'
         select_datetime (DateTime.now + 2.month), from: 'дата окончания'
         select_datetime (DateTime.now + 1.days), from: 'дата начала'
+        fill_in 'шаг ставки', with: 100.0
+        choose '60 секунд'
         select @product.title, from: 'товар'
         #save_and_open_page
         #click_on 'сохранить'

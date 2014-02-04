@@ -12,5 +12,11 @@ ru:
         start_date: дата начала
         product: товар
         product_id: товар
+        price_step: шаг ставки
         title: название
+        time_step: временной шаг ставки
+        time_steps:
+          30s: 30 секунд
+          60s: 60 секунд
+          120s: 120 секунд
 
