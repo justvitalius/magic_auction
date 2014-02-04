@@ -11,7 +11,25 @@ describe Auction do
   end
 
   describe '#time_step' do
-    pending
+    it{ validate_numericality_of(:time_step) }
+
+    it 'should be equal to 30 by default' do
+      expect(Auction.new.time_step).to eq(30)
+    end
+
+    it 'should be valid only equals 30 or 60 or 120 seconds' do
+      [30, 60, 120].each do |time|
+        auction.time_step = time
+        expect(auction).to be_valid
+      end
+    end
+
+    it 'not should be valid if not equals to 30, 60 or 120 seconds' do
+      [28, 123, 1, 0, 121, 10313].each do |time|
+        auction.time_step = time
+        expect(auction).to_not be_valid
+      end
+    end
   end
 
   describe '#price_step' do
@@ -25,7 +43,7 @@ describe Auction do
 
     describe 'should extra validate Product' do
       before do
-        @auction = Auction.new(title: 'hello', expire_date: DateTime.now + 1.month, start_date: DateTime.now + 1.seconds)
+        @auction = Auction.new(title: 'hello', expire_date: DateTime.now + 1.month, start_date: DateTime.now + 1.seconds, price_step: 1.00)
       end
 
       # можно заменить на одну строку от should_matchers
