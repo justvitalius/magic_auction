@@ -12,4 +12,7 @@ MagicAuction::Application.routes.draw do
     resources :products,    except: [:show]
     resources :auctions,    except: [:show]
   end
+
+  resources :auctions,    only: [:show]
+
 end

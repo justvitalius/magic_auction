@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'acceptance/acceptance_helper'
 
 feature "All user view auctions list", %q{
   In order to bids auctions
@@ -11,9 +11,10 @@ feature "All user view auctions list", %q{
     let!(:current_auctions){ 5.times.map{ |i| create(:auction_with_images, title: "current-auction-#{i}") } }
     let!(:ended_auctions) do
       5.times.map do |i|
-        a = create(:auction_with_images, title: "ended-auction-#{i}")
-        a.update_attribute(:expire_date, DateTime.yesterday)
-        a
+        #a = create(:auction_with_images, title: "ended-auction-#{i}")
+        #a.update_attribute(:expire_date, DateTime.yesterday)
+        #a
+        create(:expires_auction)
       end
     end
 
