@@ -5,7 +5,7 @@ describe Auction do
 
   let(:auction){ create(:auction) }
 
-  describe 'should have title' do
+  describe '#title' do
     it {should validate_presence_of(:title)}
     it {should ensure_length_of(:title).is_at_most(64)}
   end
@@ -97,84 +97,80 @@ describe Auction do
     end
   end
 
-  describe 'should have expire date' do
-    it {should validate_presence_of(:expire_date)}
+  describe 'should have start and expire dates' do
+    describe '#expire_date' do
+      it {should validate_presence_of(:expire_date)}
 
-    it 'should have expire date until now' do
-      auction.expire_date = DateTime.now
-      expect(auction).not_to be_valid
-    end
-
-
-    it 'should have expire date until today' do
-      auction.expire_date = DateTime.now - 1.day
-      expect(auction).not_to be_valid
-    end
-
-    describe 'should have expire date not later then 1 year later' do
-      it 'expire date more than 1 year from now' do
-        auction.expire_date = DateTime.now + 1.year + 1.second
+      it 'should have expire date until now' do
+        auction.expire_date = DateTime.now
         expect(auction).not_to be_valid
       end
 
-      it 'expire date equal to 1 year from now' do
-        auction.expire_date = DateTime.now + 1.year
-        expect(auction).to be_valid
+
+      it 'should have expire date until today' do
+        auction.expire_date = DateTime.now - 1.day
+        expect(auction).not_to be_valid
+      end
+
+      describe 'should have expire date not later then 1 year later' do
+        it 'expire date more than 1 year from now' do
+          auction.expire_date = DateTime.now + 1.year + 1.second
+          expect(auction).not_to be_valid
+        end
+
+        it 'expire date equal to 1 year from now' do
+          auction.expire_date = DateTime.now + 1.year
+          expect(auction).to be_valid
+        end
+      end
+
+      it 'should be later than start_date' do
+        auction.start_date = auction.expire_date + 1.second
+        expect(auction).not_to be_valid
       end
     end
 
-    it 'should be later than start_date' do
-      auction.start_date = auction.expire_date + 1.second
-      expect(auction).not_to be_valid
-    end
-  end
+    describe '#start-date' do
+      it {should validate_presence_of(:start_date)}
 
-  describe 'should have start-date' do
-    it {should validate_presence_of(:start_date)}
-
-    it 'should not be earlier than now' do
-      auction.start_date = DateTime.now - 2.minutes - 1.seconds
-      expect(auction).not_to be_valid
-    end
+      it 'should not be earlier than now' do
+        auction.start_date = DateTime.now - 2.minutes - 1.seconds
+        expect(auction).not_to be_valid
+      end
 
 
-    it 'should be later than now' do
-      auction.start_date = DateTime.now + 1.seconds
-      expect(auction).to be_valid
-    end
-
-    it 'should be later than today' do
-      auction.start_date = DateTime.now + 1.days
-      expect(auction).to be_valid
-    end
-
-    describe 'should be earlier than expire-date' do
-      it 'should be valid if earlier expire-date than 12 hours' do
-        auction.start_date = auction.expire_date - 1.days
+      it 'should be later than now' do
+        auction.start_date = DateTime.now + 1.seconds
         expect(auction).to be_valid
       end
 
-      it 'should be not valid if equal expire-date' do
-        auction.start_date = auction.expire_date
-        expect(auction).not_to be_valid
+      it 'should be later than today' do
+        auction.start_date = DateTime.now + 1.days
+        expect(auction).to be_valid
       end
 
-      it 'should be not valid if later expire-date' do
-        auction.start_date = auction.expire_date + 1.days
-        expect(auction).not_to be_valid
+      describe 'should be earlier than expire-date' do
+        it 'should be valid if earlier expire-date than 12 hours' do
+          auction.start_date = auction.expire_date - 1.days
+          expect(auction).to be_valid
+        end
+
+        it 'should be not valid if equal expire-date' do
+          auction.start_date = auction.expire_date
+          expect(auction).not_to be_valid
+        end
+
+        it 'should be not valid if later expire-date' do
+          auction.start_date = auction.expire_date + 1.days
+          expect(auction).not_to be_valid
+        end
       end
     end
   end
 
   describe 'auctions scopes by actual dates' do
     let!(:current_auctions){ 5.times.map{ |i| create(:auction, title: "current-auction-#{i}") } }
-    let!(:ended_auctions) do
-      5.times.map do |i|
-        a = create(:auction, title: "ended-auction-#{i}")
-        a.update_attribute(:expire_date, DateTime.yesterday)
-        a
-      end
-    end
+    let!(:ended_auctions){ 5.times.map{ create(:expires_auction) } }
     let!(:futured_auctions){
       5.times.map{ |i| create(:auction, title: "tomorrow-auction-#{i}", start_date: DateTime.now+(i+1).day) }
     }
@@ -194,5 +190,64 @@ describe Auction do
 
   end
 
+  describe '#increase_finish_date' do
+    context 'validations' do
+      it 'should increase if finished-date before the expires-date' do
+        pending
+      end
+
+      it 'should not increase if finished-date later expires-date' do
+        pending
+      end
+    end
+    context 'do it' do
+      it 'should increase finish-date' do
+        expect{ auction.increase_finish_date }.to change(auction, :finish_date).by(auction.time_step.seconds)
+      end
+
+      it 'should save self' do
+        expect(auction.price).to eq(0)
+        auction.increase_finish_date
+        auction.reload
+        expect(auction.price).to eq(auction.time_step)
+      end
+    end
+  end
+
+  describe '#increase_price' do
+    it 'should increase price' do
+      expect{ auction.increase_price }.to change(auction, :price).by(auction.price_step)
+    end
+
+    it 'should save self' do
+      expect(auction.price).to eq(0)
+      auction.increase_price
+      auction.reload
+      expect(auction.price).to eq(auction.price_step)
+    end
+  end
+
+  describe '#active?' do
+    it 'is active' do
+      expect(auction.active?).to be_true
+    end
+
+    context 'is not active' do
+      it 'is not active if now later expire-date' do
+        allow(auction).to recieve(:expire_date).and_return(DateTime.now - 1.second)
+        expect(auction.active?).to be_false
+      end
+
+      it 'is not active if now later finish-date' do
+        allow(auction).to recieve(:finish_date).and_return(DateTime.now - 1.second)
+        expect(auction.active?).to be_false
+      end
+
+      it 'is not active if now before the start-date' do
+        allow(auction).to recieve(:start_date).and_return(DateTime.now + 1.second)
+        expect(auction.active?).to be_false
+      end
+    end
+  end
 
 end

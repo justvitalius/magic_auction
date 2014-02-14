@@ -38,4 +38,37 @@ describe Bet do
     end
   end
 
+  context 'when created' do
+    let(:auction){ create(:auction) }
+    let(:bet){ create(:bet, auction: lot) }
+
+    before do
+      allow(auction).to receive(:active?).and_return(true)
+    end
+
+    it 'increase auction price' do
+      allow(auction).to receive(:increase_finish_time)
+      expect(auction).to receive(:increase_price)
+      bet.save!
+    end
+
+    it 'increase auction finish-time' do
+      allow(auction).to recieve(:increase_price)
+      expect(auction).to recieve(:increase_finish_time)
+      bet.save!
+    end
+  end
+
+  context 'validations' do
+    it 'should be valid for active auction' do
+      allow(auction).to recieve(:active?).and_return(true)
+      expect(bet).to be_valid
+    end
+
+    it 'should be not valid for inactive auction' do
+      allow(auction).to recieve(:active?).and_return(false)
+      expect(bet).to_not be_valid
+    end
+  end
+
 end
