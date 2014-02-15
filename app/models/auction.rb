@@ -9,8 +9,11 @@ class Auction < ActiveRecord::Base
   # ошибки валидации на product пробрасывается через nested_attrs. эта проверка не нужна для обязательности присутствия product.
   #validates :product, presence: true, if: lambda{ |a| a.product.try(:valid?) }
 
-  validates :expire_date, presence: true, timeliness: { on_or_after: lambda{ DateTime.now - 1.minutes }, on_or_before: lambda{ DateTime.now + 1.year }, allow_blank: false }
-  validates :start_date, presence: true, timeliness: { on_or_after: lambda{ DateTime.now - 2.minutes}, on_or_before: lambda{ |a| a.expire_date - 12.hours }, allow_blank: false }
+  validates :expire_date, presence: true, timeliness: { on_or_before: lambda{ DateTime.now + 1.year }, allow_blank: false }
+  validates :expire_date,                 timeliness: { on_or_after: lambda{ DateTime.now - 1.minutes } }, on: :create
+
+  validates :start_date, presence: true,  timeliness: { on_or_before: lambda{ |a| a.expire_date - 12.hours }, allow_blank: false }
+  validates :start_date,                  timeliness: { on_or_after: lambda{ DateTime.now - 2.minutes} }, on: :create
 
   validates :price_step, presence: true, numericality: {greater_than_or_equal_to: 0.00}
   validates :time_step, presence: true, numericality: {integer: true}, :inclusion=> { :in => TIME_STEPS }
@@ -47,7 +50,7 @@ class Auction < ActiveRecord::Base
     else
       self.finish_date += self.time_step.seconds
     end
-    save!
+    self.save!
   end
 
   def increase_price
