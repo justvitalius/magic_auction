@@ -52,4 +52,5 @@ gem 'has_scope'
 gem 'simple_form'
 gem 'simple_form_fancy_uploads'
 gem 'nested_form'
+gem 'draper'
 
