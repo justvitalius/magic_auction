@@ -14,5 +14,6 @@ MagicAuction::Application.routes.draw do
   end
 
   resources :auctions,    only: [:show]
+  resources :bets,        only: [:new]
 
 end

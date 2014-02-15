@@ -1,0 +1,8 @@
+.col-sm-4.well
+  h5= auction.title
+  p= auction.product.title
+  p
+    - auction.images.each do |img|
+      = image_tag img.image.url, class: 'col-sm-3'
+  p= auction.expire_date.strftime('%d.%m.%Y')
+  p= link_to 'сделать ставку', new_bet_path(auction: auction)

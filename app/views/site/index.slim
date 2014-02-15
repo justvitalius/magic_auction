@@ -6,23 +6,11 @@ h1
 h2 Текущие аукционы
 .row.spec-current-auctions
   - @current_auctions.each do |a|
-    .col-sm-4.well
-      h5= a.title
-      p= a.product.title
-      p
-        - a.images.each do |img|
-          = image_tag img.image.url, class: 'col-sm-3'
-      p= a.expire_date.strftime('%d.%m.%Y')
+    = render 'auctions/auction_card', auction: a
 
 
 
 h2 Завершенные аукционы
 .row.spec-ended-auctions
   - @ended_auctions.each do |a|
-    .col-sm-4.well
-      h5= a.title
-      p= a.product.title
-      p
-        - a.images.each do |img|
-          = image_tag img.image.url, class: 'col-sm-3'
-      p= a.expire_date.strftime('%d.%m.%Y')
+    = render 'auctions/auction_card', auction: a
