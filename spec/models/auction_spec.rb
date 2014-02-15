@@ -37,6 +37,11 @@ describe Auction do
     it { should validate_numericality_of(:price_step).is_greater_than_or_equal_to BigDecimal.new('0.01') }
   end
 
+  describe '#price' do
+    it { should validate_presence_of(:price) }
+    it { should validate_numericality_of(:price).is_greater_than_or_equal_to BigDecimal.new('0.00') }
+  end
+
   describe 'should have Product' do
     it { should belong_to(:product) }
     it { should accept_nested_attributes_for(:product) }
@@ -206,10 +211,10 @@ describe Auction do
       end
 
       it 'should save self' do
-        expect(auction.price).to eq(0)
+        before_finish_date = auction.finish_date
         auction.increase_finish_date
         auction.reload
-        expect(auction.price).to eq(auction.time_step)
+        expect(auction.finish_date).to eq(before_finish_date + auction.time_step)
       end
     end
   end
@@ -234,17 +239,17 @@ describe Auction do
 
     context 'is not active' do
       it 'is not active if now later expire-date' do
-        allow(auction).to recieve(:expire_date).and_return(DateTime.now - 1.second)
+        allow(auction).to receive(:expire_date).and_return(DateTime.now - 1.second)
         expect(auction.active?).to be_false
       end
 
       it 'is not active if now later finish-date' do
-        allow(auction).to recieve(:finish_date).and_return(DateTime.now - 1.second)
+        allow(auction).to receive(:finish_date).and_return(DateTime.now - 1.second)
         expect(auction.active?).to be_false
       end
 
       it 'is not active if now before the start-date' do
-        allow(auction).to recieve(:start_date).and_return(DateTime.now + 1.second)
+        allow(auction).to receive(:start_date).and_return(DateTime.now + 1.second)
         expect(auction.active?).to be_false
       end
     end

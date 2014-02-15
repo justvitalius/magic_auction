@@ -12,10 +12,10 @@ class Auction < ActiveRecord::Base
   validates :expire_date, presence: true, timeliness: { on_or_after: lambda{ DateTime.now - 1.minutes }, on_or_before: lambda{ DateTime.now + 1.year }, allow_blank: false }
   validates :start_date, presence: true, timeliness: { on_or_after: lambda{ DateTime.now - 2.minutes}, on_or_before: lambda{ |a| a.expire_date - 12.hours }, allow_blank: false }
 
-  validates :price_step, presence: true, numericality: {greater_than_or_equal_to: 0.01}
+  validates :price_step, presence: true, numericality: {greater_than_or_equal_to: 0.00}
   validates :time_step, presence: true, numericality: {integer: true}, :inclusion=> { :in => TIME_STEPS }
 
-  after_initialize :default_time_step
+  after_initialize :default_time_step, :default_price
 
 
   accepts_nested_attributes_for :product
@@ -24,16 +24,13 @@ class Auction < ActiveRecord::Base
   scope :inactive, -> { where('expire_date <= ?', Time.now) }
   scope :futured, -> { where('start_date >= ?', Time.now) }
 
-  # TODO: в контроллере будет выполняться логика типа «если у пользователя есть ставки, то сделай set_rate у модели»
-  # а здесь просто описать действия типа:
-  # 1. данный статус дает делать ставку?
-  # 2. если статус позволяет, то изменяем временной интервал и
-  # 3. записываем в этой же таблице новый "временной интервал" и "время окончания временного интервала"
-  # 4. после записи возвращает true, false и текст ошибки
-  #
-  # но по идее нужно еще сохранить в отдельной таблице «кто сделал ставку» и «время совершения ставки» и «стоимость ставки»
-  # где это лучше делать? Тут или в контроллере?
-  def set_rate
+
+  def active?
+    if self.start_date <= DateTime.now && self.finish_date > DateTime.now && self.expire_date > self.finish_date
+      true
+    else
+      false
+    end
   end
 
   def images
@@ -44,8 +41,26 @@ class Auction < ActiveRecord::Base
     product.category || nil
   end
 
+  def increase_finish_date
+    if self.finish_date.nil?
+      self.finish_date = DateTime.now + self.time_step.seconds
+    else
+      self.finish_date += self.time_step.seconds
+    end
+    save!
+  end
+
+  def increase_price
+    self.price += self.price_step
+    save!
+  end
+
   protected
   def default_time_step
     self.time_step ||= TIME_STEPS.first
+  end
+
+  def default_price
+    self.price = 0
   end
 end
