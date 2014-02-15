@@ -4,7 +4,7 @@
   p
     - auction.images.each do |img|
       = image_tag img.image.url, class: 'col-sm-3'
-  p = auction.expire_date.strftime('%d.%m.%Y')
+  p.spec-auction-finish-date = auction.finish_date.strftime('%d.%m.%Y')
 
   hr
   p.spec-auction-price = auction.price
