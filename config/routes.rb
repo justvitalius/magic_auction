@@ -13,7 +13,8 @@ MagicAuction::Application.routes.draw do
     resources :auctions,    except: [:show]
   end
 
-  resources :auctions,    only: [:show]
-  resources :bets,        only: [:new]
+  resources :auctions, only: [:show] do
+    resources :bets, only: [:create]
+  end
 
 end

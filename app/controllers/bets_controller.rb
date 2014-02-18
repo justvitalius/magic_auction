@@ -1,11 +1,11 @@
 class BetsController < ApplicationController
-  def new
+  def create
     unless current_user
       redirect_to root_path, notice: 'зарегистрируйтесь, чтобы сделать ставку'
       return
     end
 
-    auction = Auction.find(params[:auction])
+    auction = Auction.find(params[:auction_id])
     @bet = Bet.new(user: current_user, auction: auction)
     if @bet.save!
       respond_to do |format|
