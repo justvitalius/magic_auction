@@ -14,3 +14,5 @@ h2 Завершенные аукционы
 .row.spec-ended-auctions
   - @ended_auctions.each do |a|
     = render 'auctions/auction_card', auction: a
+
+= subscribe_to '/auctions/updates'

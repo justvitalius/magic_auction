@@ -8,7 +8,7 @@ feature "Users make bets", %q{
 
   let(:auction){ create(:auction_with_images )}
   let(:path){ auction_path(auction) }
-
+  # ВРЕМЯ ДОЛЖНО ИДТИ НАЗАД В ИНТЕРФЕЙСЕ
   describe 'tries to make a bet as unregistarable visitor' do
     it 'should not make a bet' do
       visit path

@@ -1,4 +1,4 @@
-.col-sm-4.well
+.col-sm-4.well id="auction_#{auction.id}"
   h5 = auction.title
   p = auction.product.title
   p
@@ -7,5 +7,5 @@
   p.spec-auction-finish-date = auction.finish_date.strftime('%d.%m.%Y')
 
   hr
-  p.spec-auction-price = auction.price
+  p.spec-auction-price.js-auction-price = auction.price
   p = auction.link_to_make_bet

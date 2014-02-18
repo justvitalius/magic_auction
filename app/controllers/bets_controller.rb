@@ -6,9 +6,12 @@ class BetsController < ApplicationController
     end
 
     auction = Auction.find(params[:auction])
-    bet = Bet.new(user: current_user, auction: auction)
-    if bet.save!
-      redirect_to :back, notice: 'ставка сделана'
+    @bet = Bet.new(user: current_user, auction: auction)
+    if @bet.save!
+      respond_to do |format|
+        format.html{ redirect_to :back, notice: 'ставка сделана' }
+        format.js
+      end
     else
       redirect_to :back, error: bet.errors.messages
     end

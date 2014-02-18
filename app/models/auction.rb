@@ -29,7 +29,9 @@ class Auction < ActiveRecord::Base
 
 
   def active?
-    if self.start_date <= DateTime.now && self.finish_date > DateTime.now && self.expire_date > self.finish_date
+    time_now = DateTime.now
+    #if self.start_date <= DateTime.now && self.finish_date > DateTime.now && self.expire_date > self.finish_date
+    if self.start_date <= time_now && self.expire_date > time_now
       true
     else
       false
@@ -45,11 +47,14 @@ class Auction < ActiveRecord::Base
   end
 
   def increase_finish_date
-    if self.finish_date.nil?
-      self.finish_date = DateTime.now + self.time_step.seconds
-    else
-      self.finish_date += self.time_step.seconds
-    end
+    #if self.finish_date.nil?
+    #  self.finish_date = DateTime.now + self.time_step.seconds
+    #else
+    #  self.finish_date += self.time_step.seconds
+    #end
+
+    self.finish_date ||= DateTime.now
+    self.finish_date += self.time_step.seconds
     self.save!
   end
 
@@ -64,6 +69,6 @@ class Auction < ActiveRecord::Base
   end
 
   def default_price
-    self.price = 0
+    self.price ||= 0
   end
 end

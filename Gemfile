@@ -38,6 +38,8 @@ gem 'therubyracer'
 gem 'bootstrap-sass', '~> 3.0.3.0'
 gem 'sass-rails', '~> 4.0.0'
 gem 'font-awesome-rails'
+gem 'private_pub'
+gem 'thin'
 
 
 gem 'carrierwave'

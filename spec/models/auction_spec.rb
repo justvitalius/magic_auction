@@ -38,7 +38,6 @@ describe Auction do
   end
 
   describe '#price' do
-    it { should validate_presence_of(:price) }
     it { should validate_numericality_of(:price).is_greater_than_or_equal_to BigDecimal.new('0.00') }
   end
 

@@ -1,0 +1,3 @@
+<% publish_to '/auctions/updates' do %>
+  $("#auction_<%= @bet.auction.id %> .js-auction-price").text("<%= j @bet.auction.price.to_s %>")
+<% end %>

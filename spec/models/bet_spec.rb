@@ -39,7 +39,7 @@ describe Bet do
   end
 
   context 'when created' do
-    let(:bet){ create(:bet) }
+    let(:bet){ build(:bet) }
 
     before do
       allow(bet.auction).to receive(:active?).and_return(true)
