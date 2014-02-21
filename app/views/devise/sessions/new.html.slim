@@ -7,4 +7,6 @@ h2
     = f.input :remember_me, :as => :boolean if devise_mapping.rememberable?
   .form-actions
     = f.button :submit, "войти", class: 'btn btn-success'
+    = link_to "через facebook", user_omniauth_authorize_path(:facebook) , class: 'btn btn-link'
+
 = render "devise/shared/links"

@@ -1,12 +1,11 @@
 MagicAuction::Application.routes.draw do
 
-  devise_for :users, controllers: { registrations: 'user/registrations' }
+  devise_for :users, controllers: { registrations: 'user/registrations', omniauth_callbacks: 'omniauth_callbacks' }
 
   root 'site#index'
   get 'admin' => 'admin/auctions#index', as: :user_root
 
   namespace 'admin' do
-    #get 'auctions#index', as: :root
     root 'auctions#index'
     resources :categories,  except: [:show]
     resources :products,    except: [:show]
