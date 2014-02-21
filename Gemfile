@@ -47,6 +47,8 @@ gem 'mini_magick'
 gem 'ancestry'
 gem 'validates_timeliness', '~> 3.0'
 gem 'devise'
+gem 'omniauth'
+gem 'omniauth-facebook'
 
 
 gem 'inherited_resources'
