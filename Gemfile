@@ -29,6 +29,8 @@ group :test do
   gem 'database_cleaner'
 end
 
+gem 'pg'
+
 gem 'slim'
 gem 'haml'
 gem 'simple-navigation'
