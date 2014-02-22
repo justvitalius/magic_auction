@@ -1,10 +1,10 @@
 class BetsController < ApplicationController
   def create
-    # not working with comet
-    #unless current_user
-    #  redirect_to root_path, notice: 'зарегистрируйтесь, чтобы сделать ставку'
-    #  return
-    #end
+    #not working with comet
+    unless current_user
+      redirect_to root_path, notice: 'зарегистрируйтесь, чтобы сделать ставку'
+      return
+    end
 
     auction = Auction.find(params[:auction_id])
     @bet = Bet.new(user: current_user, auction: auction)
