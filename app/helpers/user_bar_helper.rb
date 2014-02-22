@@ -7,7 +7,7 @@ module UserBarHelper
     content_tag(:ul, class: 'nav navbar-nav navbar-right') do
       if current_user
         raw(private_office_link)+
-        raw(logout_link)
+            raw(logout_link)
       else
         raw(login_link)
       end
@@ -26,7 +26,7 @@ module UserBarHelper
     content_tag :li do
       link_to edit_user_registration_path do
         content_tag(:i, '', class: 'fa fa-user')+
-        content_tag(:span, current_user.email)
+            content_tag(:span, current_user.email)
       end
     end
   end
@@ -35,7 +35,7 @@ module UserBarHelper
     content_tag :li do
       link_to destroy_user_session_path, method: :delete do
         content_tag(:i, '', class: 'fa fa-power-off')+
-        content_tag(:span, t('.logout'))
+            content_tag(:span, t('.logout'))
       end
     end
   end

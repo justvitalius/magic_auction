@@ -8,8 +8,8 @@ feature "All user view auctions list", %q{
 
   describe 'auctions list on root path' do
 
-    let!(:current_auctions){ 5.times.map{ |i| create(:auction_with_images) } }
-    let!(:ended_auctions){ 5.times.map{ |i| create(:expires_auction) } }
+    let!(:current_auctions) { 5.times.map { |i| create(:auction_with_images) } }
+    let!(:ended_auctions) { 5.times.map { |i| create(:expires_auction) } }
 
     before do
       visit root_path

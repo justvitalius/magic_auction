@@ -6,20 +6,19 @@ feature "Admin manage categories", %q{
   I want to manage categories.
  } do
 
-  let(:admin){ create(:admin) }
-  let(:path){ new_user_session_path }
-  let(:path){ admin_categories_path }
-  let(:collection_title){ 'категории' }
-  let(:collection){ 3.times.map{ |i| create(:category, title: "category-#{i}") } }
+  let(:admin) { create(:admin) }
+  let(:path) { new_user_session_path }
+  let(:path) { admin_categories_path }
+  let(:collection_title) { 'категории' }
+  let(:collection) { 3.times.map { |i| create(:category, title: "category-#{i}") } }
 
   #it_behaves_like 'Collection_listable'
   # проверка на администратора
   it_behaves_like 'Collection_listable'
 
 
-
   describe 'should work with admin area' do
-    background  do
+    background do
       prepare_testing_area
     end
 

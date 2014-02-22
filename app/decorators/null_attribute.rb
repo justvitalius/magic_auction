@@ -9,7 +9,7 @@ class NullAttribute
 
   private
   def empty_tag
-    @template.content_tag(:em, empty_text, :class=>'muted')
+    @template.content_tag(:em, empty_text, :class => 'muted')
   end
 
   def empty_text

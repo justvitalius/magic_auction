@@ -6,10 +6,10 @@ feature "Admin manage auctions", %q{
   I want to view, create, edit and delete auctions.
  } do
 
-  let(:path){ admin_auctions_path }
-  let!(:admin){ create(:admin) }
-  let(:collection){ 3.times.map{ |i| create(:auction, title: "auction-#{i}") } }
-  let(:collection_title){ 'аукционы' }
+  let(:path) { admin_auctions_path }
+  let!(:admin) { create(:admin) }
+  let(:collection) { 3.times.map { |i| create(:auction, title: "auction-#{i}") } }
+  let(:collection_title) { 'аукционы' }
 
 
   it_behaves_like 'Admin_accessible'
@@ -17,7 +17,7 @@ feature "Admin manage auctions", %q{
 
 
   describe 'work with admin area' do
-    background  do
+    background do
       prepare_testing_area
     end
 
@@ -29,7 +29,7 @@ feature "Admin manage auctions", %q{
 
       describe 'ajax', js: true do
 
-        context 'view and interact new auction form'do
+        context 'view and interact new auction form' do
           background do
             visit new_admin_auction_path
           end
@@ -90,14 +90,14 @@ feature "Admin manage auctions", %q{
 
           scenario 'should create new one Product' do
             expect(page.all('select:disabled').count).to_not eq(0)
-            expect{ click_on 'сохранить' }.to change(Product, :count).by(1)
+            expect { click_on 'сохранить' }.to change(Product, :count).by(1)
             expect(current_path).to eq(admin_auctions_path)
           end
 
           scenario 'should create new one Auction' do
             #save_and_open_page
             expect(page.all('select:disabled').count).to_not eq(0)
-            expect{ click_on 'сохранить' }.to change(Auction, :count).by(1)
+            expect { click_on 'сохранить' }.to change(Auction, :count).by(1)
             expect(current_path).to eq(admin_auctions_path)
           end
         end
@@ -124,7 +124,7 @@ feature "Admin manage auctions", %q{
             # choose label_name
             # check label_name
           end
-          expect{ click_on 'сохранить' }.to_not change(Product, :count)
+          expect { click_on 'сохранить' }.to_not change(Product, :count)
           expect(page.all('select:disabled').count).to_not eq(0)
           expect(current_path).to eq(admin_auctions_path)
           # написать,чтобы не создавался Аукцион
@@ -143,7 +143,7 @@ feature "Admin manage auctions", %q{
         select @product.title, from: 'товар'
         #save_and_open_page
         #click_on 'сохранить'
-        expect{ click_on 'сохранить' }.to change(Auction, :count).by(1)
+        expect { click_on 'сохранить' }.to change(Auction, :count).by(1)
         expect(current_path).to eq(admin_auctions_path)
         # проверить,что этот аукцион появился в списке, это будет тест с точки зрения пользователя.
         expect(page).to have_content('аукционы')
@@ -164,8 +164,8 @@ feature "Admin manage auctions", %q{
     context 'should edit existed auction' do
       describe 'ajax', js: true do
         context 'view and interact existed auction form' do
-          let(:auction){ create(:auction) }
-          let(:product){ create(:product) }
+          let(:auction) { create(:auction) }
+          let(:product) { create(:product) }
 
           scenario 'load form with default states of UI controls' do
             visit edit_admin_auction_path(auction)

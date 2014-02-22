@@ -32,7 +32,7 @@
             if ((window.Blob && file instanceof Blob) ||
                 // Files are also Blob instances, but some browsers
                 // (Firefox 3.6) support the File API but not Blobs:
-                    (window.File && file instanceof File)) {
+                (window.File && file instanceof File)) {
                 url = oUrl = loadImage.createObjectURL(file);
             } else {
                 url = file;
@@ -45,8 +45,8 @@
                 img.src = url;
             });
         },
-        // The check for URL.revokeObjectURL fixes an issue with Opera 12,
-        // which provides URL.createObjectURL but doesn't properly implement it:
+    // The check for URL.revokeObjectURL fixes an issue with Opera 12,
+    // which provides URL.createObjectURL but doesn't properly implement it:
         urlAPI = (window.createObjectURL && window) ||
             (window.URL && URL.revokeObjectURL && URL) ||
             (window.webkitURL && webkitURL);

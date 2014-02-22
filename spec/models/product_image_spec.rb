@@ -82,7 +82,7 @@ describe ProductImage do
   end
 
   describe 'should have Product' do
-    it {should belong_to(:product)}
+    it { should belong_to(:product) }
     #it {should validate_presence_of(:product_id)}
   end
 

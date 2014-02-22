@@ -6,21 +6,21 @@ feature "Users make bets", %q{
   I want to make a bet
  } do
 
-  let(:auction){ create(:auction_with_images )}
-  let(:path){ auction_path(auction) }
+  let(:auction) { create(:auction_with_images) }
+  let(:path) { auction_path(auction) }
   # ВРЕМЯ ДОЛЖНО ИДТИ НАЗАД В ИНТЕРФЕЙСЕ
   describe 'tries to make a bet as unregistarable visitor' do
     it 'should not make a bet' do
       visit path
 
-      expect{click_on('сделать ставку')}.to_not change(Bet, :count)
+      expect { click_on('сделать ставку') }.to_not change(Bet, :count)
       expect(page).to have_content('зарегистрируйтесь')
       expect(current_path).to eq(path)
     end
   end
 
   describe 'tries to bet as registarable user' do
-    let(:user){ create(:user) }
+    let(:user) { create(:user) }
 
     context 'active auctions' do
       before do
@@ -31,7 +31,7 @@ feature "Users make bets", %q{
 
       describe 'should make a bet' do
         it 'should create a bet' do
-          expect{ click_on 'сделать ставку' }.to change(Bet, :count)
+          expect { click_on 'сделать ставку' }.to change(Bet, :count)
           expect(page).to have_content('ставка сделана')
         end
 

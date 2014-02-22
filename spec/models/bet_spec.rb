@@ -3,7 +3,7 @@ require 'bigdecimal'
 
 describe Bet do
 
-  let(:bet){ create(:bet) }
+  let(:bet) { create(:bet) }
 
   describe 'should have relations to user' do
     it { should belong_to(:user).dependent(:destroy) }
@@ -16,8 +16,8 @@ describe Bet do
   end
 
   pending '#type' do
-    it{ should validate_presence_of(:type) }
-    it{ should validate_numericality_of(:type) }
+    it { should validate_presence_of(:type) }
+    it { should validate_numericality_of(:type) }
 
     it 'should be equal to "1" by default' do
       expect(Bet.new.type).to eq(1)
@@ -39,7 +39,7 @@ describe Bet do
   end
 
   context 'when created' do
-    let(:bet){ build(:bet) }
+    let(:bet) { build(:bet) }
 
     before do
       allow(bet.auction).to receive(:active?).and_return(true)
@@ -59,7 +59,7 @@ describe Bet do
   end
 
   context 'validations' do
-    let(:bet){ create(:bet) }
+    let(:bet) { create(:bet) }
 
     it 'should be valid for active auction' do
       allow(bet.auction).to receive(:active?).and_return(true)

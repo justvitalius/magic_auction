@@ -1,4 +1,8 @@
-.fa{
-  &:before{padding-right: 5px;}
-  &:empty:before{padding-right: 0;}
+.fa {
+  &:before {
+    padding-right: 5px;
+  }
+  &:empty:before {
+    padding-right: 0;
+  }
 }

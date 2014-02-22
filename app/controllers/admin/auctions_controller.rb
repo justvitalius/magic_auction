@@ -11,7 +11,7 @@ class Admin::AuctionsController < Admin::ResourcesController
   end
 
   def update
-    update!{ admin_auctions_path }
+    update! { admin_auctions_path }
   end
 
   def create
@@ -36,7 +36,7 @@ class Admin::AuctionsController < Admin::ResourcesController
         [params.require(:auction).permit(
              :title, :expire_date, :start_date, :price_step, :time_step, :product_id,
              product_attributes: [:title, :description, :price, :category_id, :_destroy,
-                              images_attributes: ['id', 'image', 'image_cache', 'product_id', '_destroy']]
+                                  images_attributes: ['id', 'image', 'image_cache', 'product_id', '_destroy']]
          )]
       end
     end

@@ -3,15 +3,15 @@ require 'spec_helper'
 # TODO: как вообще эти тесты
 describe Auction do
 
-  let(:auction){ create(:auction) }
+  let(:auction) { create(:auction) }
 
   describe '#title' do
-    it {should validate_presence_of(:title)}
-    it {should ensure_length_of(:title).is_at_most(64)}
+    it { should validate_presence_of(:title) }
+    it { should ensure_length_of(:title).is_at_most(64) }
   end
 
   describe '#time_step' do
-    it{ validate_numericality_of(:time_step) }
+    it { validate_numericality_of(:time_step) }
 
     it 'should be equal to 30 by default' do
       expect(Auction.new.time_step).to eq(30)
@@ -103,7 +103,7 @@ describe Auction do
 
   describe 'should have start and expire dates' do
     describe '#expire_date' do
-      it {should validate_presence_of(:expire_date)}
+      it { should validate_presence_of(:expire_date) }
 
       it 'should have expire date until now' do
         auction.expire_date = DateTime.now
@@ -135,7 +135,7 @@ describe Auction do
     end
 
     describe '#start-date' do
-      it {should validate_presence_of(:start_date)}
+      it { should validate_presence_of(:start_date) }
 
       it 'should not be earlier than now' do
         auction.start_date = DateTime.now - 2.minutes - 1.seconds
@@ -173,10 +173,10 @@ describe Auction do
   end
 
   describe 'auctions scopes by actual dates' do
-    let!(:current_auctions){ 5.times.map{ |i| create(:auction, title: "current-auction-#{i}") } }
-    let!(:ended_auctions){ 5.times.map{ create(:expires_auction) } }
-    let!(:futured_auctions){
-      5.times.map{ |i| create(:auction, title: "tomorrow-auction-#{i}", start_date: DateTime.now+(i+1).day) }
+    let!(:current_auctions) { 5.times.map { |i| create(:auction, title: "current-auction-#{i}") } }
+    let!(:ended_auctions) { 5.times.map { create(:expires_auction) } }
+    let!(:futured_auctions) {
+      5.times.map { |i| create(:auction, title: "tomorrow-auction-#{i}", start_date: DateTime.now+(i+1).day) }
     }
 
 
@@ -206,7 +206,7 @@ describe Auction do
     end
     context 'do it' do
       it 'should increase finish-date' do
-        expect{ auction.increase_finish_date }.to change(auction, :finish_date).by(auction.time_step.seconds)
+        expect { auction.increase_finish_date }.to change(auction, :finish_date).by(auction.time_step.seconds)
       end
 
       it 'should save self' do
@@ -220,7 +220,7 @@ describe Auction do
 
   describe '#increase_price' do
     it 'should increase price' do
-      expect{ auction.increase_price }.to change(auction, :price).by(auction.price_step)
+      expect { auction.increase_price }.to change(auction, :price).by(auction.price_step)
     end
 
     it 'should save self' do

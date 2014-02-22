@@ -6,13 +6,13 @@ feature "Admin authenticate", %q{
   I want to logging on admin area
  } do
 
-  let(:path){ admin_root_path }
-  let(:admin){ create(:admin) }
+  let(:path) { admin_root_path }
+  let(:admin) { create(:admin) }
 
   it_behaves_like 'Admin_accessible'
 
   context 'Private office' do
-    let(:path){ edit_user_registration_path }
+    let(:path) { edit_user_registration_path }
 
     background do
       prepare_testing_area
@@ -48,7 +48,7 @@ feature "Admin authenticate", %q{
     end
 
     context 'Authenticated user' do
-      let(:path){ new_user_session_path }
+      let(:path) { new_user_session_path }
 
       background do
         prepare_testing_area

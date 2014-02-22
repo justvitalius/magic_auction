@@ -10,7 +10,7 @@ class BetsController < ApplicationController
     @bet = Bet.new(user: current_user, auction: auction)
     if @bet.save!
       respond_to do |format|
-        format.html{ redirect_to :back, notice: 'ставка сделана' }
+        format.html { redirect_to :back, notice: 'ставка сделана' }
         format.js {
           PrivatePub.publish_to '/auctions/updates', auction_id: @bet.auction.id, auction_finish_date: @bet.auction.finish_date.try(:strftime, '%d:%M:%Y').to_s, auction_price: @bet.auction.price.to_s
           render nothing: true

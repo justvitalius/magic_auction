@@ -6,7 +6,7 @@ module BootstrapHelper
     flash.each do |type, message|
       next if message.blank?
       type = :success if type == :notice
-      type = :danger   if type == :alert
+      type = :danger if type == :alert
       next unless ALERT_TYPES.include?(type)
       output += flash_container(type, message)
     end
@@ -16,7 +16,7 @@ module BootstrapHelper
 
   def flash_container(type, message)
     raw(content_tag(:div, :class => "alert alert-#{type}") do
-      content_tag(:a, raw("&times;"),:class => 'close', :data => {:dismiss => 'alert'}) +
+      content_tag(:a, raw("&times;"), :class => 'close', :data => {:dismiss => 'alert'}) +
           message
     end)
   end

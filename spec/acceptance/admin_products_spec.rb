@@ -6,17 +6,17 @@ feature "Admin manage products", %q{
   I want to manage products.
  } do
 
-  let(:admin){ create(:admin) }
-  let(:path){ admin_products_path }
-  let(:collection_title){ 'товары' }
-  let(:collection){ 3.times.map{ |i| create(:product, title: "product-#{i}") } }
+  let(:admin) { create(:admin) }
+  let(:path) { admin_products_path }
+  let(:collection_title) { 'товары' }
+  let(:collection) { 3.times.map { |i| create(:product, title: "product-#{i}") } }
 
   it_behaves_like 'Admin_accessible'
   it_behaves_like 'Collection_listable'
 
-  
+
   describe 'should work with admin area' do
-    background  do
+    background do
       prepare_testing_area
     end
 

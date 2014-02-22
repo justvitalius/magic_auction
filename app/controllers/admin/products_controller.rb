@@ -1,11 +1,11 @@
 class Admin::ProductsController < Admin::ResourcesController
 
   def update
-    update!{ products_path }
+    update! { products_path }
   end
 
   def create
-    create!{ products_path }
+    create! { products_path }
   end
 
   protected

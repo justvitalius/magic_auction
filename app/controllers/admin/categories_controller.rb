@@ -1,11 +1,11 @@
 class Admin::CategoriesController < Admin::ResourcesController
 
   def update
-    update!{ categories_path }
+    update! { categories_path }
   end
 
   def create
-    create!{ categories_path }
+    create! { categories_path }
   end
 
   protected

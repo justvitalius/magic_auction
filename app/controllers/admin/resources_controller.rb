@@ -3,7 +3,7 @@ class Admin::ResourcesController < Admin::BaseController
   helper_method :attributes, :form_attributes, :association_attributes, :associations
 
   respond_to :html
-  actions :all, :except => [ :show ]
+  actions :all, :except => [:show]
 
   private
 
@@ -16,12 +16,12 @@ class Admin::ResourcesController < Admin::BaseController
   end
 
   def association_attributes
-    associations(:belongs_to).map{|a| a.options[:foreign_key] || "#{a.name}_id"}
+    associations(:belongs_to).map { |a| a.options[:foreign_key] || "#{a.name}_id" }
   end
 
   def associations(macro=nil)
     assoc=resource_class.reflect_on_all_associations
-    assoc.select!{|a| a.macro==macro.to_sym} unless macro.blank?
+    assoc.select! { |a| a.macro==macro.to_sym } unless macro.blank?
     assoc
   end
 
