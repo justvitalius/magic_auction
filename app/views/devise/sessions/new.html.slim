@@ -8,5 +8,6 @@ h2
   .form-actions
     = f.button :submit, "войти", class: 'btn btn-success'
     = link_to "через facebook", user_omniauth_authorize_path(:facebook) , class: 'btn btn-link'
+    = link_to "через vkontakte", user_omniauth_authorize_path(:vkontakte) , class: 'btn btn-link'
 
 = render "devise/shared/links"

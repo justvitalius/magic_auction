@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.0.1'
+gem 'rails', '4.0.3'
 
 gem 'sqlite3'
 gem 'uglifier', '>= 1.3.0'
@@ -51,6 +51,7 @@ gem 'validates_timeliness', '~> 3.0'
 gem 'devise'
 gem 'omniauth'
 gem 'omniauth-facebook'
+gem 'omniauth-vkontakte'
 
 
 gem 'inherited_resources'
