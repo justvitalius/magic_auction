@@ -87,10 +87,10 @@ describe User do
       end
 
       context 'without email' do
-        let(:auth){ OmniAuth::AuthHash.new(provider: 'facebook', uid: '12345', info: {  }) }
+        let(:auth){ OmniAuth::AuthHash.new(provider: 'vkontakte', uid: '12345', info: {  }) }
 
         it 'does not crate new user' do
-          expect { User.find_for_oauthauth(auth) }.to_not change(User.count)
+          expect { User.find_for_oauth(auth) }.to_not change(User, :count)
         end
 
         it 'returns nil' do

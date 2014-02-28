@@ -33,7 +33,7 @@ gem 'pg'
 
 gem 'slim'
 gem 'haml'
-gem 'simple-navigation'
+gem 'simple-navigation', '~> 3.11.0'
 gem 'simple_navigation_renderers'
 
 gem 'therubyracer'
