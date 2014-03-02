@@ -7,7 +7,12 @@ describe User do
   let(:auth){ OmniAuth::AuthHash.new(provider: 'facebook', uid: 12345) }
 
 
-  it { should respond_to(:email) }
+  it { should validate_presence_of(:email) }
+  it { should validate_presence_of(:password) }
+
+  it { should respond_to(:first_name) }
+  it { should respond_to(:last_name) }
+
   it { should have_many(:authorizations).dependent(:destroy) }
 
   describe '#admin?' do

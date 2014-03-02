@@ -5,8 +5,8 @@ class User::RegistrationsController < Devise::RegistrationsController
     auth = session['devise.auth']
 
     if auth.present?
-      @user.first_name = auth[:info][:first_name]
-      @user.last_name = auth[:info][:last_name]
+      #@user.first_name = auth[:info][:first_name]
+      #@user.last_name = auth[:info][:last_name]
     end
   end
 
