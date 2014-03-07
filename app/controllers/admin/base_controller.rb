@@ -7,9 +7,9 @@ class Admin::BaseController < ApplicationController
   protected
   def authorization!
     authenticate_user!
-    unless current_user.admin?
-      redirect_to root_path, flash: {notice: 'У вас нет прав доступа к этой странице'}
-    end
+    #unless current_user.admin?
+    #  redirect_to root_path, flash: {notice: 'У вас нет прав доступа к этой странице'}
+    #end
   end
 
   def categories

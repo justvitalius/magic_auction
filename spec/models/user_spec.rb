@@ -104,4 +104,43 @@ describe User do
       end
     end
   end
+
+  describe '#add_authorization' do
+    context 'authorization does not exists' do
+      it 'add authorization to user' do
+        expect { user.add_authorization(auth) }.to change(user.authorizations, :count).by(1)
+      end
+
+      it 'returns true' do
+        expect(user.add_authorization(auth)).to be_true
+      end
+    end
+
+    context 'authorization already exists' do
+      context 'authorization associated with current user' do
+        before { user.create_authorization(auth) }
+
+        it 'does not create authorization to user' do
+          expect { user.add_authorization(auth) }.to_not change(user.authorizations, :count)
+        end
+
+        it 'returns true' do
+          expect(user.add_authorization(auth)).to be_true
+        end
+      end
+
+      context 'authorization associated wth other user' do
+        let(:other_user) { create(:user, email: 'other@mail.ru') }
+        before { other_user.create_authorization(auth) }
+
+        it 'does not create authorization to user' do
+          expect { user.add_authorization(auth) }.to_not change(user.authorizations, :count)
+        end
+
+        it 'returns false' do
+          expect(user.add_authorization(auth)).to be_false
+        end
+      end
+    end
+  end
 end

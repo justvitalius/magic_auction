@@ -1,0 +1,13 @@
+= @user.email
+= @user.first_name
+= @user.last_name
+br
+- @user.authorizations.each do |a|
+  .row
+    .col-sm-2 = a.provider
+    .col-sm-2 = a.uid
+
+.row
+  .btn-group
+    = link_to "привязать facebook",  user_omniauth_authorize_path(:facebook) , class: 'btn btn-default'
+    = link_to "привязать vkontakte", user_omniauth_authorize_path(:vkontakte) , class: 'btn btn-default'

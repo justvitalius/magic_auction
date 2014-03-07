@@ -17,6 +17,8 @@ SimpleNavigation::Configuration.run do |navigation|
       submenu.item :new_category, {icon: 'fa fa-plus-circle', text: 'создать родительскую категорию'}, new_admin_category_path
       submenu.item :categories_list, {icon: 'fa fa-table', text: 'все категории'}, admin_categories_path
     end
+
+    primary.item :profile, {text: 'профиль'}, profile_path
   end
   # Specify a custom renderer if needed.
   # The default renderer is SimpleNavigation::Renderer::List which renders HTML lists.
