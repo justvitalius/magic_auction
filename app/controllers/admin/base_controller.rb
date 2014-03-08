@@ -1,18 +1,18 @@
 class Admin::BaseController < ApplicationController
-  before_filter :authorization!
+  before_action  :authenticate_user!
+  bef ore_action :authorize_resource
+
 
   helper_method :categories
 
 
   protected
-  def authorization!
-    authenticate_user!
-    #unless current_user.admin?
-    #  redirect_to root_path, flash: {notice: 'У вас нет прав доступа к этой странице'}
-    #end
-  end
 
   def categories
     @categories ||= Category.all
+  end
+
+  def authorize_resource
+    authorize! :manage, :admin
   end
 end

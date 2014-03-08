@@ -6,7 +6,7 @@ module BootstrapHelper
     flash.each do |type, message|
       next if message.blank?
       type = :success if type == :notice
-      type = :danger if type == :alert
+      type = :danger if type == :error
       next unless ALERT_TYPES.include?(type)
       output += flash_container(type, message)
     end
