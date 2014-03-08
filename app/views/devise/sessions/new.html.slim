@@ -7,7 +7,9 @@ h2
     = f.input :remember_me, :as => :boolean if devise_mapping.rememberable?
   .form-actions
     = f.button :submit, "войти", class: 'btn btn-success'
-    = link_to "через facebook", user_omniauth_authorize_path(:facebook) , class: 'btn btn-link'
-    = link_to "через vkontakte", user_omniauth_authorize_path(:vkontakte) , class: 'btn btn-link'
+
+    - if devise_mapping.omniauthable?
+      - resource_class.omniauth_providers.each do |provider|
+        = link_to "через #{provider.to_s.titleize}", omniauth_authorize_path(resource_name, provider), class: 'btn btn-link'
 
 = render "devise/shared/links"

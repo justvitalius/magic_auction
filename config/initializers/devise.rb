@@ -229,6 +229,7 @@ Devise.setup do |config|
   # up on your models and hooks.
   config.omniauth :facebook, '602720649807210', 'ea06f628fa2fd3596fccaa44b5c5aa51', scope: [:email]
   config.omniauth :vkontakte, '4210987', 'kIbLnuZh4EtMwHFktwk0'
+  config.omniauth :twitter, '7GiB3UnXMncdVLzAVQiTUQ', 'sllv0990x0LSHlwdTTi3athHspGBCDktuNHQ666H9r4'
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or

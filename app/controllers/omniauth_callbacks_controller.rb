@@ -7,6 +7,9 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def vkontakte
   end
 
+  def twitter
+  end
+
   protected
 
   def oauth_callback
