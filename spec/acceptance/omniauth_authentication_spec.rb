@@ -1,52 +1,65 @@
 require 'acceptance/acceptance_helper'
 
+feature "User authenticate by social network", %q{
+  In order to make a bet
+  As an user
+  I want to authenticate by social networks.
+ } do
 
-# This is an example of logging into a website using OmniAuth using
-# the site's actual login links/buttons.
-#
-# If you're rigged your links/buttons to do magic, this may or may not work.
-feature 'Using Login Buttons' do
   let(:path) { new_user_session_path }
 
   background do
     visit path
-    #logged_in?.should == false
-  end
-
-
-  let!(:user) { create(:user) }
-  scenario "using Facebook" do
-    visit new_user_session_path
-    OmniAuth.config.add_mock(:facebook, {uid: '12345', info: { email: 'test@mail.com', nickname: 'Nick' }})
-
-    click_on 'через Facebook'
-
-    expect(current_path).to eq(root_path)
-    expect(page).to have_content 'Вход в систему выполнен с учётной записью из Facebook'
-  end
-
-  scenario "using Twitter" do
-    OmniAuth.config.add_mock :twitter, uid: "twitter-12345", info: { name: "Bob Smith" }
-    click_on "через Twitter"
-
-    page.should have_content "Вы успешно вошли через соц.сеть"
-    logged_in?.should == true
-  end
-  #
-  scenario "using Vkontakte" do
-    OmniAuth.config.add_mock :vkontakte, uid: "vk-12345", info: { name: "Bob Smith" }
-    click_on "через Vkontakte"
-
-    page.should have_content "Вы успешно вошли через соц.сеть"
-    logged_in?.should == true
-  end
-
-  scenario "invalid login" do
-    OmniAuth.config.mock_auth[:twitter] = :invalid_credentials
-    click_on "через Twitter"
-
-    page.should have_content "Ошибка при входе через соц.сеть"
     logged_in?.should == false
   end
 
+  context 'for unregistered user' do
+
+    scenario 'using Facebook' do
+      OmniAuth.config.add_mock :facebook, uid: 'fb-12345', info: { email: 'test@mail.com', name: 'Bob Smith' }
+
+      click_on 'через Facebook'
+
+      expect(current_path).to eq(root_path)
+      expect(page).to have_content 'Вы успешно вошли через соц.сеть'
+      logged_in?.should == true
+    end
+
+    scenario 'using Twitter' do
+      OmniAuth.config.add_mock :twitter, uid: 'tw-12345', info: { name: 'Bob Smith' }
+
+      click_on 'через Twitter'
+
+
+      expect(current_path).to eq(new_user_registration_path)
+      fill_in 'email', with: 'oauth@mail.ru'
+      fill_in 'пароль', with: '12345678'
+      fill_in 'подтверждение пароля', with: '12345678'
+      click_on 'зарегистрироваться'
+
+
+      expect(current_path).to eq(root_path)
+      page.should have_content 'Вы успешно зарегистрировались'
+      logged_in?.should == true
+    end
+    #
+    scenario 'using Vkontakte' do
+      OmniAuth.config.add_mock :vkontakte, uid: 'vk-12345', info: { name: 'Bob Smith' }
+
+      click_on 'через Vkontakte'
+
+      expect(current_path).to eq(new_user_registration_path)
+      fill_in 'email', with: 'oauth@mail.ru'
+      fill_in 'пароль', with: '12345678'
+      fill_in 'подтверждение пароля', with: '12345678'
+      click_on 'зарегистрироваться'
+
+      expect(current_path).to eq(root_path)
+      page.should have_content 'Вы успешно зарегистрировались'
+      logged_in?.should == true
+    end
+  end
+
+  context 'for registered user' do
+  end
 end

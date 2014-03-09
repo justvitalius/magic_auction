@@ -3,7 +3,7 @@ MagicAuction::Application.routes.draw do
   devise_for :users, controllers: {registrations: 'user/registrations', omniauth_callbacks: 'omniauth_callbacks'}
 
   root 'site#index'
-  get 'admin' => 'admin/auctions#index', as: :user_root
+  #get '/' => 'admin/auctions#index', as: :user_root
 
   namespace 'admin' do
     root 'auctions#index'
