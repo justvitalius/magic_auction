@@ -28,4 +28,5 @@
 /.sass_cache
 /.system
 .zeus.sock
+.powrc
 
