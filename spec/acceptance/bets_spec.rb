@@ -6,10 +6,10 @@ feature "Users make bets", %q{
   I want to make a bet
  } do
 
-  let(:auction) { create(:auction_with_images) }
   let(:path) { auction_path(auction) }
-  # ВРЕМЯ ДОЛЖНО ИДТИ НАЗАД В ИНТЕРФЕЙСЕ
-  describe 'tries to make a bet as unregistarable visitor' do
+  let(:auction) { create(:auction_with_images) }
+
+  describe 'tries to make a bet as unregistered visitor' do
     it 'should not make a bet' do
       visit path
 
@@ -19,7 +19,7 @@ feature "Users make bets", %q{
     end
   end
 
-  describe 'tries to bet as registarable user' do
+  describe 'tries to bet as registered user' do
     let(:user) { create(:user) }
 
     context 'active auctions' do
@@ -57,7 +57,7 @@ feature "Users make bets", %q{
     end
 
     context 'future auctions' do
-
+      let!(:auction) { create(:futured_auction) }
       describe 'should not give a bet' do
         it 'should not have a "make a bet" button' do
           visit path
@@ -68,6 +68,7 @@ feature "Users make bets", %q{
     end
 
     context 'expired auctions' do
+      let!(:auction) { create(:expired_auction) }
       describe 'should not give a bet' do
         it 'should not have "make a bet" button' do
           visit path

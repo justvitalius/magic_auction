@@ -4,8 +4,12 @@
   p
     - auction.images.each do |img|
       = image_tag img.image.url, class: 'col-sm-3'
-  p.spec-auction-finish-date = auction.finish_date.strftime('%d.%m.%Y')
+  p
+    .text-muted время окончания аукциона
+    .spec-auction-finish-date = auction.finish_date.strftime('%d.%m.%Y %H:%M:%S')
 
   hr
-  p.spec-auction-price.js-auction-price = auction.price
-  p = auction.link_to_make_bet
+  p
+    .text-muted текущая стоимость лота
+    .spec-auction-price.js-auction-price = auction.price
+  p = auction.link_to_make_bet class: 'btn btn-primary'

@@ -174,7 +174,7 @@ describe Auction do
 
   describe 'auctions scopes by actual dates' do
     let!(:current_auctions) { 5.times.map { |i| create(:auction, title: "current-auction-#{i}") } }
-    let!(:ended_auctions) { 5.times.map { create(:expires_auction) } }
+    let!(:ended_auctions) { 5.times.map { create(:expired_auction) } }
     let!(:futured_auctions) {
       5.times.map { |i| create(:auction, title: "tomorrow-auction-#{i}", start_date: DateTime.now+(i+1).day) }
     }

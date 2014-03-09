@@ -12,7 +12,7 @@ shared_examples_for 'Admin_accessible' do
   scenario 'Non-admin user tries to log in' do
     us = create(:user)
     sign_in_with us.email, '12345678'
-    expect(page).to have_content('У вас нет прав доступа к этой странице')
+    expect(page).to have_content('У вас нет прав доступа к запрошенной странице')
     expect(current_path).to eq(root_path)
   end
 

@@ -16,10 +16,17 @@ FactoryGirl.define do
       product { FactoryGirl.create(:product_with_images) }
     end
 
-    factory :expires_auction do
+    factory :expired_auction do
       sequence(:title) { |n| "expired-auction-#{n}" }
       expire_date { DateTime.now - 5.month }
       start_date { DateTime.now - 6.months }
+      to_create { |instance| instance.save(validate: false) }
+    end
+
+    factory :futured_auction do
+      sequence(:title) { |n| "futured-auction-#{n}" }
+      expire_date { DateTime.now + 5.month }
+      start_date { DateTime.now + 1.month }
       to_create { |instance| instance.save(validate: false) }
     end
   end

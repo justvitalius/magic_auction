@@ -4,6 +4,8 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   rescue_from CanCan::AccessDenied do
-    render file: "#{Rails.root}/public/403.html", status: 403, layout: false
+    path = request.referer.present?? request.referer : root_path
+    flash[:error] = 'У вас нет прав доступа к запрошенной странице'
+    redirect_to path
   end
 end
