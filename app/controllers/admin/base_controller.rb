@@ -1,6 +1,6 @@
 class Admin::BaseController < ApplicationController
   before_action  :authenticate_user!
-  bef ore_action :authorize_resource
+  before_action :authorize_resource
 
 
   helper_method :categories
