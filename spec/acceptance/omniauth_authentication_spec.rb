@@ -13,7 +13,8 @@ feature "User authenticate by social network", %q{
     logged_in?.should == false
   end
 
-  context 'for unregistered user' do
+  describe 'login' do
+    context 'for unregistered user' do
 
     scenario 'using Facebook' do
       OmniAuth.config.add_mock :facebook, uid: 'fb-12345', info: { email: 'test@mail.com', name: 'Bob Smith' }
@@ -59,7 +60,39 @@ feature "User authenticate by social network", %q{
       logged_in?.should == true
     end
   end
+  end
 
-  context 'for registered user' do
+  describe 'bind social networks in profile' do
+    let!(:user) { create(:user) }
+    let(:path) { profile_path }
+
+    background do
+      sign_in_with user.email, '12345678'
+      expect(page).to have_content 'привязать facebook'
+    end
+
+    context 'bind with other user' do
+      let(:auth) { OmniAuth.config.add_mock :facebook, uid: 'fb-12345', info: { email: 'other@mail.ru', name: 'Bob Smith' } }
+      let(:other_user) { create(:user, email: 'other@mail.ru') }
+      background do
+        other_user.add_authorization auth
+        click_on 'привязать facebook'
+      end
+
+      scenario 'bind facebook' do
+        expect(page).to have_content 'Соц.сеть уже привязана к другим аккаунтам'
+      end
+    end
+
+    context 'bind with current user' do
+      background do
+        OmniAuth.config.add_mock :facebook, uid: 'fb-12345', info: { email: user.email, name: 'Bob Smith' }
+        click_on 'привязать facebook'
+      end
+
+      scenario 'bind facebook' do
+        expect(page).to have_content 'Соц.сеть успешно добавлена'
+      end
+    end
   end
 end
