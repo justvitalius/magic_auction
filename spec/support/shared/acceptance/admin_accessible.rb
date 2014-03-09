@@ -5,6 +5,7 @@ shared_examples_for 'Admin_accessible' do
 
   scenario 'Admin tries to get an access' do
     sign_in_with admin.email, '12345678'
+    #logged_in?.should == true
     expect(page).to_not have_content('необходимо войти')
     expect(current_path).to_not eq(new_user_session_path)
   end
@@ -12,7 +13,8 @@ shared_examples_for 'Admin_accessible' do
   scenario 'Non-admin user tries to log in' do
     us = create(:user)
     sign_in_with us.email, '12345678'
-    expect(page).to have_content('У вас нет прав доступа к запрошенной странице')
+    #logged_in?.should == false
+    expect(page).to have_content('Неверный адрес e-mail или пароль.')
     expect(current_path).to eq(root_path)
   end
 

@@ -4,7 +4,7 @@ feature "User authenticate by social network", %q{
   In order to make a bet
   As an user
   I want to authenticate by social networks.
- } do
+} do
 
   let(:path) { new_user_session_path }
 

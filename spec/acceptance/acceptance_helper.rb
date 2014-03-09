@@ -35,7 +35,6 @@ RSpec.configure do |config|
 
   config.include Features::SelectDatesAndTimesHelper, type: :feature
   config.include Features::SessionsHelper, type: :feature
-  config.include Features::OmniauthHelper, type: :feature
 
   OmniAuth.config.test_mode = true
 

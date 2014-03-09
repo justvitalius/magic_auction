@@ -14,5 +14,9 @@ module Features
       visit path
       sign_in_with admin.email, '12345678'
     end
+
+    def logged_in?
+      page.has_selector? "a", text: "выйти"
+    end
   end
 end

@@ -15,7 +15,6 @@ feature "Users make bets", %q{
 
       expect { click_on('сделать ставку') }.to_not change(Bet, :count)
       expect(page).to have_content('зарегистрируйтесь')
-      expect(current_path).to eq(path)
     end
   end
 
