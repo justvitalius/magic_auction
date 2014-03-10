@@ -4,7 +4,7 @@ feature "Admin authenticate", %q{
   In order to manage site essences
   As an admin
   I want to logging on admin area
- } do
+} do
 
   let(:path) { admin_root_path }
   let(:admin) { create(:admin) }

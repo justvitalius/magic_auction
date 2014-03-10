@@ -4,7 +4,7 @@ feature "Admin manage categories", %q{
   In order to manage auction's settings
   As an admin
   I want to manage categories.
- } do
+} do
 
   let(:admin) { create(:admin) }
   let(:path) { new_user_session_path }

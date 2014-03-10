@@ -4,7 +4,7 @@ feature "Admin manage auctions", %q{
   In order to manage auction's settings
   As an admin
   I want to view, create, edit and delete auctions.
- } do
+} do
 
   let(:path) { admin_auctions_path }
   let!(:admin) { create(:admin) }

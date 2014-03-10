@@ -4,7 +4,7 @@ feature "All user view auctions list", %q{
   In order to bids auctions
   As an anyone
   I want to view current and ended auctions
- } do
+} do
 
   describe 'auctions list on root path' do
 

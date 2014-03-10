@@ -4,7 +4,7 @@ feature "Users make bets", %q{
   In order to buy a product
   As an user
   I want to make a bet
- } do
+} do
 
   let(:path) { auction_path(auction) }
   let(:auction) { create(:auction_with_images) }
