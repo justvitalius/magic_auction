@@ -137,11 +137,19 @@ describe Auction do
     describe '#start-date' do
       it { should validate_presence_of(:start_date) }
 
-      it 'should not be earlier than now' do
-        auction.start_date = DateTime.now - 2.minutes - 1.seconds
-        expect(auction).not_to be_valid
+      context 'on create' do
+        it 'should not be earlier than now' do
+          auction = build(:auction, start_date: DateTime.now - 2.minutes - 1.second)
+          expect(auction).to_not be_valid
+        end
       end
 
+      context 'on update' do
+        it 'should be earlier than now' do
+          auction.start_date = DateTime.now - 2.minutes - 1.second
+          expect(auction).to be_valid
+        end
+      end
 
       it 'should be later than now' do
         auction.start_date = DateTime.now + 1.seconds
@@ -196,14 +204,21 @@ describe Auction do
 
   describe '#increase_finish_date' do
     context 'validations' do
-      it 'should increase if finished-date before the expires-date' do
-        pending
+      context 'finish-date before the expire-date' do
+        it 'should return true' do
+          expect(auction.increase_finish_date).to be_true
+        end
       end
 
-      it 'should not increase if finished-date later expires-date' do
-        pending
+      context 'finish-date later expire-date' do
+        it 'should return false' do
+          expire_date = Time.now - 1.second
+          auction = build(:auction, expire_date: expire_date )
+          expect(auction.increase_finish_date).to be_false
+        end
       end
     end
+
     context 'do it' do
       it 'should increase finish-date' do
         expect { auction.increase_finish_date }.to change(auction, :finish_date).by(auction.time_step.seconds)

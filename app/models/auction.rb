@@ -15,6 +15,8 @@ class Auction < ActiveRecord::Base
   validates :price_step, presence: true, numericality: {greater_than_or_equal_to: 0.00}
   validates :time_step, presence: true, numericality: {integer: true}, :inclusion => {:in => TIME_STEPS}
 
+  validates :price, presence: true, numericality: {greater_than_or_equal_to: 0.00}
+
   after_initialize :default_time_step, :default_price
 
 
@@ -27,7 +29,7 @@ class Auction < ActiveRecord::Base
 
   def active?
     time_now = DateTime.now
-    if self.start_date <= time_now && self.expire_date > time_now
+    if self.start_date <= time_now && self.expire_date > time_now && self.finish_date > time_now
       true
     else
       false
@@ -45,7 +47,7 @@ class Auction < ActiveRecord::Base
   def increase_finish_date
     self.finish_date ||= DateTime.now
     self.finish_date += self.time_step.seconds
-    self.save!
+    self.active?? self.save! : false
   end
 
   def increase_price
