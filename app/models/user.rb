@@ -7,6 +7,9 @@ class User < ActiveRecord::Base
 
   has_many :authorizations, dependent: :destroy
 
+  has_many :user_permissions
+  has_many :permissions, through: :user_permissions
+
 
   def self.find_for_oauth auth
     authorization = Authorization.where(provider: auth.provider, uid: auth.uid.to_s).first

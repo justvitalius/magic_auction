@@ -17,7 +17,7 @@ end
 group :development, :test do
   gem 'factory_girl_rails'
   gem 'rspec-rails'
-  gem 'zeus'
+  gem 'zeus', '0.13.4pre2'
 end
 
 group :test do
