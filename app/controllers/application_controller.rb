@@ -4,7 +4,8 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   rescue_from CanCan::AccessDenied do
-    path = request.referer.present?? request.referer : root_path
+    #path = request.referer.present? ? request.referer : root_path
+    path = request.referer || root_path
     flash[:error] = 'У вас нет прав доступа к запрошенной странице'
     redirect_to path
   end

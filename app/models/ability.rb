@@ -16,10 +16,10 @@ class Ability
   end
 
   def user_abilities
-    can :read, Auction
+    cannot :read, Auction
     can :create, Bet
     can :manage, :profile
-    cannot :manage, :admin
+    cannot :manage, :admin # это свойство излишне,потому что запрещено все,что не разрешено.
   end
 
   def guest_abilities
