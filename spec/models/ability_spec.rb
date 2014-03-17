@@ -47,5 +47,17 @@ describe Ability do
       it { should be_able_to :manage, Category}
       it { should be_able_to :manage, Product}
     end
+
+    context 'user has permissions only for object' do
+      let(:cat1) { create(:category) }
+      let(:cat2) { create(:category) }
+
+      before do
+        user.permissions << create(:permission, action: :manage, subject: 'Category', subject_id: cat1.id)
+      end
+
+      it { should be_able_to :manage, cat1}
+      it { should_not be_able_to :manage, cat2}
+    end
   end
 end

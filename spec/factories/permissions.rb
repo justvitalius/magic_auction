@@ -2,16 +2,16 @@
 
 FactoryGirl.define do
   factory :permission do
+    title 'Permission'
+    action 'manage'
 
     factory :manage_categories do
       title 'Управление категорями'
-      action 'manage'
       subject 'Category'
     end
 
     factory :manage_products do
       title 'Управление продуктами'
-      action 'manage'
       subject 'Product'
     end
 
