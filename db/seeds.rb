@@ -9,7 +9,9 @@ FactoryGirl.create(:admin)
 # Import permissions
 [
     { title: 'Управление категориями', action: :manage, subject: 'Category'},
-    { title: 'Управление продуктами', action: :manage, subject: 'Product'}
+    { title: 'Управление продуктами', action: :manage, subject: 'Product'},
+    { title: 'Управление пользователями', action: :manage, subject: 'User'},
+    { title: 'Управление правами', action: :manage, subject: 'Permission'},
 ].each do |permission|
   title = permission.delete(:title)
   p = Permission.where(permission).first

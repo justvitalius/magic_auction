@@ -10,6 +10,9 @@ MagicAuction::Application.routes.draw do
     resources :categories, except: [:show]
     resources :products, except: [:show]
     resources :auctions, except: [:show]
+    resources :users do
+      resources :permissions, only: [:index, :create, :destroy]
+    end
   end
 
   resources :auctions, only: [:show] do

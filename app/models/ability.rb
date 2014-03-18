@@ -19,7 +19,7 @@ class Ability
     can :read, Auction
     can :create, Bet
     can :manage, :profile
-    cannot :manage, :admin # это свойство излишне,потому что запрещено все,что не разрешено.
+    #cannot :manage, :admin # это свойство излишне,потому что запрещено все,что не разрешено.
 
     user.permissions.each do |p|
       begin

@@ -18,6 +18,11 @@ SimpleNavigation::Configuration.run do |navigation|
       submenu.item :categories_list, {icon: 'fa fa-table', text: 'все категории'}, admin_categories_path
     end
 
+    primary.item :users, {text: 'пользователи'}, admin_users_path, highlights_on: :subpath do |submenu|
+      submenu.item :new_user, {icon: 'fa fa-plus-circle', text: 'создать родительскую категорию'}, new_admin_user_path
+      submenu.item :users_list, {icon: 'fa fa-table', text: 'все категории'}, admin_users_path
+    end
+
     primary.item :profile, {text: 'профиль'}, profile_path
   end
   # Specify a custom renderer if needed.
