@@ -22,7 +22,11 @@ class Ability
     cannot :manage, :admin # это свойство излишне,потому что запрещено все,что не разрешено.
 
     user.permissions.each do |p|
-      can p.action.to_sym, p.subject.constantize, id: p.subject_id.to_i
+      begin
+        can p.action.to_sym, p.subject.constantize, id: p.subject_id.to_i
+      rescue NameError
+        can p.action.to_sym, p.subject.to_sym
+      end
     end
   end
 

@@ -59,5 +59,12 @@ describe Ability do
       it { should be_able_to :manage, cat1}
       it { should_not be_able_to :manage, cat2}
     end
+
+    context 'user has custom permissions' do
+      let(:custom_permission) { create(:permission, subject: :custom) }
+      before { user.permissions << custom_permission }
+
+      it { should be_able_to :manage, :custom }
+    end
   end
 end
